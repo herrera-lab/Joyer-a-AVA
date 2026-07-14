@@ -113,37 +113,34 @@ Debe incluir:
 Esta lista ya excluye todo lo que quedó resuelto en la conversación (carrito con `localStorage` + WhatsApp, sin cuenta de usuario, sin pasarela de pago, sin control de stock por ser piezas sobre pedido, las 6 categorías, footer, accesibilidad, idioma y seguridad) — solo queda lo que realmente falta decidir o recolectar.
 
 ### 4.1 Identidad de marca (previo a todo)
-- [ ] Logo (o si hay que diseñarlo)
-- [ ] Nombre oficial de la marca y slogan (si tiene)
-- [ ] Historia/misión de la marca (para "Nosotros")
-- [ ] Tono de comunicación (elegante, cercano, artesanal, etc.)
-- [ ] Confirmación de la paleta secundaria/complementaria al rosa palo
-- [ ] Fuentes tipográficas si ya tienen manual de marca
+- [x] Logo (o si hay que diseñarlo)
+- [x] Nombre oficial de la marca y slogan (si tiene)
+- [x] Historia/misión de la marca (para "Nosotros")
+- [x] Confirmación de la paleta secundaria/complementaria al rosa palo
 
 ### 4.2 Home
-- [ ] Mensaje principal / propuesta de valor
-- [ ] Imágenes de buena calidad para el hero y para cada una de las 6 categorías
-- [ ] Los 3 productos "estrella" a mostrar por categoría en el Home
-- [ ] Reseñas de clientas u otro elemento de confianza (si existen)
-- [ ] Promociones activas o próximas (si aplica)
+- [x] Mensaje principal / propuesta de valor
+- [x] Imágenes de buena calidad para el hero y para cada una de las 6 categorías
+- [x] Reseñas de clientas u otro elemento de confianza (si existen)
 
 ### 4.3 Carrito y Checkout
-- [ ] Métodos de pago que aceptarán (transferencia, efectivo contra entrega, etc. — se coordinan por WhatsApp)
-- [ ] Métodos de envío disponibles y costos por región/ciudad
-- [ ] Tiempos de fabricación y de entrega estimados
-- [ ] Política de cambios y devoluciones (plazo, condiciones)
-- [ ] ¿Requiere factura/datos fiscales?
+- [x] Métodos de pago que aceptarán (transferencia, efectivo contra entrega, etc. — se coordinan por WhatsApp)
+- [x] Métodos de envío disponibles y costos por región/ciudad
+- [x] Política de cambios y devoluciones (plazo, condiciones)
 
 ### 4.4 Nosotros
-- [ ] Historia de la joyería (cuándo y por qué nació)
-- [ ] Fotos del taller/equipo (si aplica)
-- [ ] Valores/diferenciadores (artesanal, materiales hipoalergénicos, etc.)
+- [x] Historia de la joyería (cuándo y por qué nació)
 
 ### 4.5 Contacto
-- [ ] Redes sociales activas (Instagram, WhatsApp Business, etc.)
-- [ ] Correo y teléfono/WhatsApp de atención
-- [ ] Horario de atención
-- [ ] Dirección física (si hay showroom) o si es 100% online
+- [x] Redes sociales activas (Instagram, WhatsApp Business, etc.)
+https://www.facebook.com/profile.php?id=100063504703009
+https://www.instagram.com/creat_ivas/
+506+88083026
+- [x] Correo y teléfono/WhatsApp de atención
+506+88083026
+creativas.gd@gmail.com
+- [x] Horario de atención
+8:00am a 7:00pm
 
 ### 4.6 Políticas y Legal (obligatorio para venta nacional)
 - [ ] Política de envíos (costos, zonas, tiempos)
@@ -152,9 +149,8 @@ Esta lista ya excluye todo lo que quedó resuelto en la conversación (carrito c
 - [ ] Política de privacidad y manejo de datos personales
 
 ### 4.7 Técnico / Operativo
-- [ ] ¿Ya tienen dominio y hosting, o hay que definirlos?
-- [ ] ¿Quién actualizará el catálogo? (edición manual de los datos del sitio, sin CMS)
-- [ ] Volumen aproximado de productos iniciales
+- [x] ¿Quién actualizará el catálogo? (edición manual de los datos del sitio, sin CMS)
+manualjhhh                   
 
 > El detalle de cada categoría (fotos, nombre, precio, ficha técnica, variantes) no está aquí — va en el documento de catálogo aparte, junto con las subcategorías y filtros.
 

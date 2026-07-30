@@ -1,5 +1,7 @@
 # Sugerencias de Diseño y Estructura — Sitio Web Joyería
 
+> **Nota (actualizado a la versión actual del sitio):** este documento nació como guía de sugerencias antes de construir el sitio. Gran parte de lo descrito ya está implementado en el código (`index.html`, `css/`, `js/`); se dejaron marcadas las secciones/ítems ya resueltos y se ajustaron los datos que cambiaron durante la construcción (número de categorías, rutas reales, estructura de carrito/checkout, ruta de imágenes). Lo que sigue sin marcar como implementado son pendientes reales.
+
 ## 1. Landing Page vs. Sitio Multi-página
 
 **Recomendación: Sitio multi-página (no solo landing page).**
@@ -10,18 +12,18 @@ Una landing page (una sola página con scroll) funciona bien para presentar una 
 - El cliente necesita ver detalle, precio, materiales, tallas y disponibilidad antes de comprar.
 - Un checkout y cuenta de usuario no caben cómodamente en una sola página larga.
 
-**Estructura sugerida (multi-página, con Home tipo landing):**
+**Estructura implementada (multi-página con router por hash, Home tipo landing):**
 
-1. **Home** — landing: hero, y conforme se hace scroll van apareciendo las **6 categorías principales** destacadas (imagen + 3-4 productos estrella + botón "Ver colección"), propuesta de valor, testimonios, banner de confianza (envíos, garantía, pago seguro).
-2. **Categoría** (`/catalogo/anillos`, `/catalogo/aretes`, etc.) — a donde lleva cada categoría del Home; aquí se muestran las **subcategorías** de esa categoría con toda la info (filtros, listado completo).
-3. **Ficha de producto** (`/producto/nombre-del-producto`)
-4. **Carrito** — gestionado en el navegador con `localStorage` (sin base de datos).
-5. **Checkout** — sin pasarela de pago ni backend: el pedido se envía por WhatsApp (link `wa.me` con el detalle prellenado) y la dueña confirma pago y fabricación manualmente.
-6. **Nosotros / Historia de la marca**
-7. **Contacto**
-8. **Políticas** (envíos, cambios/devoluciones, garantía, términos, privacidad) — obligatorio para vender a nivel nacional
+1. **Home** (`#/`) ✅ — landing: hero (video, no solo imagen estática — `images/hero/videoPrincipal.mp4`), y conforme se hace scroll van apareciendo las **9 categorías** destacadas, propuesta de valor, banner de confianza.
+2. **Categoría** (`#/categoria/:slug`) ✅ — a donde lleva cada categoría del Home; muestra las **subcategorías** (chips) y el listado de productos con filtros.
+3. **Ficha de producto** (`#/producto/:id`) ✅
+4. **Carrito** (`#/carrito`) ✅ — no es una página independiente en el sentido clásico: la ruta abre el **drawer lateral del carrito** (gestionado con `localStorage`, sin base de datos) sobre la página actual.
+5. **Checkout** — no existe como paso/página separada: el propio drawer del carrito incluye el botón de enviar pedido por WhatsApp (link `wa.me` con el detalle prellenado); la dueña confirma pago y fabricación manualmente. Carrito y checkout son la misma interfaz.
+6. **Nosotros** (`#/nosotros`) ✅ — Historia de la marca
+7. **Contacto** (`#/contacto`) ✅
+8. **Políticas** (`#/politicas`) ✅ — envíos, cambios/devoluciones, garantía, términos, privacidad
 
-> Nota: el Home se construye con lógica de landing page (secciones persuasivas que se revelan al hacer scroll); al entrar a una categoría ya se navega como catálogo estándar. No habrá página de "Catálogo general" separada ni cuenta de usuario (registro/login): se navega directo del Home a cada una de las 6 categorías, y la compra se hace siempre como invitada.
+> El Home se construye con lógica de landing page (secciones persuasivas que se revelan al hacer scroll); al entrar a una categoría ya se navega como catálogo estándar. No hay página de "Catálogo general" separada ni cuenta de usuario (registro/login): se navega directo del Home a cada una de las categorías, y la compra se hace siempre como invitada.
 
 **Footer (presente en todas las páginas):**
 - Color distinto al resto del sitio (banda oscura), para que se note claramente el cierre de la página
@@ -38,14 +40,13 @@ Una landing page (una sola página con scroll) funciona bien para presentar una 
 
 ## 2. Distribución del Catálogo
 
-### 2.1 Organización recomendada
+### 2.1 Organización implementada
 
-Organiza el catálogo en **categorías + subcategorías**, no solo por tipo de producto:
+El catálogo está organizado en **9 categorías + subcategorías** (`js/config/products.js`), no las 6 originalmente sugeridas: **Anillos, Aretes, Cadenas, Collares, Pulseras, Relicarios, Personalizados, Hombres, Mascotas**. Cada categoría tiene 3 subcategorías (ES/EN) y un banner propio. Los productos actuales son datos de ejemplo/placeholder (211 ítems) pendientes de reemplazar por el catálogo real.
 
-- **Por tipo de pieza:** Anillos, Aretes, Collares, Pulseras, Dijes, Sets/Conjuntos
-- **Por material:** Oro, Plata, Acero quirúrgico, Chapa de oro
-- **Por ocasión/colección:** Novia/Bodas, Bautizo/Primera comunión, Colección diaria, Ediciones limitadas
-- **Filtros combinables:** precio (rango), material, piedra, color, nuevo/más vendido (sin "disponibilidad": no aplica al no manejar stock fijo)
+- **Filtros implementados:** por subcategoría (chips en la página de categoría) y orden por precio (asc/desc) o "más nuevo".
+- **Filtros pendientes (no implementados aún):** rango de precio, material, piedra, color, más vendido. Los campos `isNew`/`isLimited` ya existen en cada producto pero están en `false` por defecto — falta cargar datos reales para que "Nuevo"/"Edición limitada" tengan sentido.
+- Sin "disponibilidad": no aplica al no manejar stock fijo (piezas sobre pedido).
 
 ### 2.2 Tarjeta de producto (grid del catálogo)
 
@@ -58,29 +59,31 @@ Cada tarjeta debe mostrar de forma consistente:
 
 ### 2.3 Ficha de producto (detalle)
 
-Debe incluir:
-- Galería de imágenes (mínimo 3-4 ángulos, zoom)
-- Nombre, precio, descripción breve
-- Ficha técnica: material, peso aproximado, dimensiones, tipo de piedra/baño
-- Selector de talla (anillos) o variante (color, largo de cadena)
-- Tiempo estimado de fabricación (la mayoría de piezas son sobre pedido, no de stock fijo); si alguna pieza ya está fabricada, indicar disponibilidad en su lugar
-- Botón "Agregar al carrito" y "Comprar ahora"
-- Información de envío nacional (tiempos estimados por región si aplica)
-- Cuidados de la joya
-- Productos relacionados / "Combina con"
+Estado actual (`js/pages/product-detail.js`):
+- Galería de imágenes: ⚠️ **pendiente** — hoy solo muestra **una imagen principal**, no la galería de 3-4 ángulos con zoom sugerida originalmente.
+- Nombre, precio, descripción breve ✅
+- Selector de talla (anillos) o largo (collares/cadenas) ✅ — el resto de categorías todavía no tiene selector de variante propio
+- Tiempo estimado de fabricación (`weeks`, bilingüe) ✅
+- Botón "Agregar al carrito" y "Comprar ahora" (agrega y abre el carrito) ✅
+- Información de envío ✅
+- Cuidados de la joya ✅ (`CARE_TIPS_ES`/`CARE_TIPS_EN`)
+- Productos relacionados (misma categoría, hasta 4) ✅
+- Ficha técnica detallada (peso, dimensiones, tipo de piedra/baño): ⚠️ pendiente de datos reales
 
 ### 2.4 Navegación del catálogo
 
-- Menú superior con categorías principales visibles (máx. 5-6 para no saturar)
+- Menú superior con categorías principales visibles — al haber crecido a 9 categorías (sección 2.1), revisar si el menú necesita agruparlas o usar un desplegable en vez de listarlas todas
 - Breadcrumbs (Inicio > Anillos > Nombre del producto) para orientar al usuario — sin nivel "Catálogo" intermedio, ya que no existe esa página general (sección 1)
-- Buscador visible en el header (por nombre o categoría)
-- Ordenar por: relevancia, precio, más nuevo, más vendido
+- Buscador visible en el header ✅ implementado (`js/features/search.js`, busca por nombre, material o categoría; muestra hasta 8 resultados)
+- Ordenar por: ✅ precio (asc/desc) y más nuevo implementados — relevancia y más vendido pendientes (no hay dato de ventas)
 
 ---
 
 ## 3. Recomendaciones de Diseño Visual
 
-**Color principal: Rosa palo (#E8C4C4 / tonos similares).**
+✅ Implementado en `css/variables.css`, incluyendo variante de modo oscuro (`body.a11y-dark`) que remapea toda la paleta.
+
+**Color principal: Rosa palo (`--rose: #e8c4c4`, `--rose-deep: #a85b5f`, `--rose-tint: #f6e9e9`).**
 
 - **Paleta sugerida:**
   - Rosa palo (principal) — fondos suaves, acentos, botones secundarios
@@ -89,9 +92,10 @@ Debe incluir:
   - Gris oscuro / negro suave (texto) — legibilidad, no usar negro puro para mantener elegancia
   - Evitar saturar con el rosa: úsalo como acento, no como fondo de toda la página (el producto —la joya— debe ser el protagonista visual)
 
-- **Tipografía:**
-  - Una fuente serif elegante para títulos/logo (ej. estilo editorial/lujo)
-  - Una sans-serif limpia para texto de cuerpo (buena legibilidad en móvil)
+- **Tipografía:** ✅ implementada
+  - Serif para títulos/logo: `Georgia, 'Times New Roman', 'Bodoni MT', serif` (`--font-display`)
+  - Sans-serif para cuerpo: `'Segoe UI', Corbel, 'Trebuchet MS', Avenir, sans-serif` (`--font-body`)
+  - Ambas son pilas de fuentes de sistema (sin fuentes web externas cargadas)
 
 - **Fotografía del producto:**
   - Fondo blanco o neutro consistente en todo el catálogo
@@ -110,66 +114,122 @@ Debe incluir:
 
 ## 4. Información que Debes Recolectar
 
-Esta lista ya excluye todo lo que quedó resuelto en la conversación (carrito con `localStorage` + WhatsApp, sin cuenta de usuario, sin pasarela de pago, sin control de stock por ser piezas sobre pedido, las 6 categorías, footer, accesibilidad, idioma y seguridad) — solo queda lo que realmente falta decidir o recolectar.
-
-### 4.1 Identidad de marca (previo a todo)
-- [x] Logo (o si hay que diseñarlo)
-- [x] Nombre oficial de la marca y slogan (si tiene)
-- [x] Historia/misión de la marca (para "Nosotros")
-- [x] Confirmación de la paleta secundaria/complementaria al rosa palo
-
-### 4.2 Home
-- [x] Mensaje principal / propuesta de valor
-- [x] Imágenes de buena calidad para el hero y para cada una de las 6 categorías
-- [x] Reseñas de clientas u otro elemento de confianza (si existen)
-
-### 4.3 Carrito y Checkout
-- [x] Métodos de pago que aceptarán (transferencia, efectivo contra entrega, etc. — se coordinan por WhatsApp)
-- [x] Métodos de envío disponibles y costos por región/ciudad
-- [x] Política de cambios y devoluciones (plazo, condiciones)
-
-### 4.4 Nosotros
-- [x] Historia de la joyería (cuándo y por qué nació)
-
-### 4.5 Contacto
-- [x] Redes sociales activas (Instagram, WhatsApp Business, etc.)
-https://www.facebook.com/profile.php?id=100063504703009
-https://www.instagram.com/creat_ivas/
-506+88083026
-- [x] Correo y teléfono/WhatsApp de atención
-506+88083026
-creativas.gd@gmail.com
-- [x] Horario de atención
-8:00am a 7:00pm
-
-### 4.6 Políticas y Legal (obligatorio para venta nacional)
-- [ ] Política de envíos (costos, zonas, tiempos)
-- [ ] Política de cambios/devoluciones y garantía
-- [ ] Términos y condiciones
-- [ ] Política de privacidad y manejo de datos personales
-
-### 4.7 Técnico / Operativo
-- [x] ¿Quién actualizará el catálogo? (edición manual de los datos del sitio, sin CMS)
-manualjhhh                   
-
-> El detalle de cada categoría (fotos, nombre, precio, ficha técnica, variantes) no está aquí — va en el documento de catálogo aparte, junto con las subcategorías y filtros.
+Esta lista ya excluye todo lo que quedó resuelto e implementado (carrito con localStorage + WhatsApp, sin cuenta de usuario, sin pasarela de pago, sin control de stock por ser piezas sobre pedido, las 9 categorías, footer, accesibilidad, idioma y seguridad).
 
 ---
+
+## 4.1 Identidad de marca
+
+- [x] *Logo:* `images/LogoPrincipal.png` (+ variante `images/Logo creativas 2.png`)
+- [x] *Nombre oficial de la marca y slogan:*
+  - *Marca:* Creativas
+  - *Slogan:* Tu esencia en un accesorio
+- [x] *Historia/misión de la marca (para "Nosotros"):*
+  - *Misión:* Diseñar más que accesorios, creando piezas de identidad únicas que fusionan el estilo de cada persona con el legado artesanal de la marca, transformando la bisutería tradicional en arte con alma e historia.
+- [x] *Paleta secundaria/complementaria al rosa palo:* dorado/champán (`--gold: #ad813f`, `--gold-line: #d8c39c`) + marfil/tinta como neutros — implementada en `css/variables.css`
+
+---
+
+## 4.2 Home
+
+- [x] *Mensaje principal / propuesta de valor:*
+
+  > En Creativas, cada pieza es diseñada con amor y dedicación, haciendo que cada una sea única no solo en su confección sino también en el significado especial que lleva consigo. Nuestro deseo es que cada accesorio te acompañe en momentos importantes, refleje tu esencia y se convierta en un recuerdo que puedas atesorar.
+
+- [x] *Hero y banners de categoría:* carpeta `images/` — el hero usa **video** (`images/hero/videoPrincipal.mp4`, referenciado como `BRAND.heroVideo`), no solo imagen estática; cada una de las 9 categorías tiene su propia subcarpeta con fotos de producto y banner.
+- [ ] *Reseñas de clientas u otro elemento de confianza (si existen):* No se conoce aun.
+
+---
+
+## 4.3 Carrito y Checkout
+
+- [ ] *Métodos de pago que aceptarán (coordinados por WhatsApp):* Se coordinan por whatsapp, sinpe o transacción.
+- [x] *Métodos de envío disponibles y costos por región/ciudad:*
+  - Envíos mediante *Correos de Costa Rica*.
+  - ₡3.500 a cualquier parte del país fuera de San Carlos.
+  - ₡4.200 dentro del cantón de San Carlos.
+- [x] *Política de cambios y devoluciones (plazo, condiciones):*
+  - Cambios únicamente por defectos de fabricación reportados dentro de los *5 días naturales* posteriores a la entrega.
+  - El producto debe devolverse en las mismas condiciones en que fue entregado y con su empaque.
+  - No se realizan devoluciones de dinero, excepto cuando exista un defecto de fabricación que no pueda ser reparado o reemplazado.
+  - Las piezas personalizadas o grabadas no tienen devolución ni cambio, salvo por errores atribuibles a Creativas.
+
+---
+
+## 4.4 Nosotros
+
+- [x] *Historia de la joyería (cuándo y por qué nació):*
+
+  Creativas nació de una pasión que comenzó a los nueve años con la creación de joyas hechas a mano. Aunque ese sueño quedó en pausa durante un tiempo, en el año 2019 renació esa pasión, dando origen a Creativas. Desde entonces, la marca ha crecido con dedicación, aprendizaje y amor, creando piezas exclusivas que reflejan la esencia de quien las lleva.
+
+---
+
+## 4.5 Contacto
+
+- [x] *Redes sociales activas:*
+  - Facebook: https://www.facebook.com/profile.php?id=100063504703009
+  - Instagram: https://www.instagram.com/creat_ivas/
+  - WhatsApp: +506 8808-3026
+
+- [x] *Correo y teléfono/WhatsApp de atención:*
+  - Correo: creativas.gd@gmail.com
+  - WhatsApp: +506 8808-3026
+
+- [x] *Horario de atención:*
+  - 8:00 a. m. – 7:00 p. m.
+
+---
+
+## 4.6 Políticas y Legal
+
+- [x] *Política de envíos:*
+  - Envíos a todo Costa Rica mediante Correos de Costa Rica.
+  - ₡3.500 fuera de San Carlos.
+  - ₡4.200 dentro del cantón de San Carlos.
+  - El seguimiento del envío se proporciona una vez confirmado el pago y finalizada la elaboración del pedido.
+
+- [x] *Política de cambios/devoluciones y garantía:*
+  - Cambios únicamente por defectos de fabricación.
+  - Garantía que cubre exclusivamente defectos de fabricación.
+  - No cubre daños ocasionados por golpes, agua, perfumes, productos químicos, desgaste normal o reparaciones realizadas por terceros.
+  - No se aceptan devoluciones por cambio de opinión.
+
+- [x] *Términos y condiciones:*
+  - Los productos son artesanales y pueden presentar ligeras variaciones.
+  - Los pedidos personalizados no pueden modificarse ni cancelarse una vez iniciada su elaboración.
+  - La producción comienza tras confirmar el pago.
+  - Los envíos se realizan mediante Correos de Costa Rica.
+  - Creativas no se responsabiliza por retrasos atribuibles a la empresa transportista.
+  - Se incluyen recomendaciones para el cuidado de las piezas y canales oficiales de atención.
+
+- [ ] *Política de privacidad y manejo de datos personales:* No se conoce.
+
+---
+
+## 4.7 Técnico / Operativo
+
+- [x] *¿Quién actualizará el catálogo?*
+  - Actualización manual de los datos del sitio (sin CMS) — productos viven en `js/config/products.js`
+
+- [x] *Stack implementado:* sitio estático (HTML/CSS/JS vanilla, sin framework ni build step), routing por hash (`js/core/router.js`), estado global simple con suscripciones (`js/core/state.js`), i18n propio ES/EN (`js/config/i18n.js` + `js/features/i18n.js`) y selector de idioma (`#langBtn`) ya funcionando.
+
 
 ## 5. Accesibilidad e Inclusividad
 
 Al vender a nivel nacional sin tienda física, el sitio web ES la tienda — si no es accesible, una parte de las clientas queda excluida de comprar. Esto aplica a todas las páginas (Home, Categoría, Ficha de producto, Carrito).
 
+✅ **El widget de accesibilidad completo ya está implementado** en `js/features/accessibility.js`, con todos los controles descritos abajo (tamaño de letra, modo oscuro, reducir movimiento, subrayar enlaces, restablecer), atrapa el foco, cierra con `Esc` y devuelve el foco al botón que lo abrió.
+
 ### 5.1 Botón de accesibilidad (widget)
 - **Ícono:** el símbolo universal de accesibilidad (figura dentro de un círculo), reconocible a simple vista.
 - **Ubicación:** fijo en pantalla (flotante), esquina inferior derecha; visible en todas las páginas. El botón "volver arriba" queda justo encima (misma esquina) y las redes sociales flotantes en paralelo del lado izquierdo — ver 5.4.
 - **Al abrirse, ofrece:**
-  - **Tamaño de letra** — botones A- / A / A+ (mínimo 3 pasos), afecta todo el sitio, no solo texto suelto.
-  - **Modo oscuro / alto contraste** — alterna paleta clara ⇄ oscura sin perder legibilidad ni identidad de marca.
-  - **Reducir movimiento** — apaga animaciones y transiciones (revelado al hacer scroll, hovers), independiente de la configuración del sistema operativo de la clienta.
-  - **Subrayar enlaces** — ayuda a quienes no distinguen bien el color por sí solo.
-  - **Restablecer** — vuelve todo a los valores por defecto.
-  - Los interruptores (modo oscuro, reducir movimiento, subrayar enlaces) se muestran como **toggle switch** minimalista, no como casillas de verificación tradicionales — más claro visualmente para indicar "activado/desactivado".
+  - **Tamaño de letra** ✅ — 3 niveles (botones con `aria-pressed`, clases `a11y-fs-1`/`a11y-fs-2`), afecta todo el sitio.
+  - **Modo oscuro / alto contraste** ✅ — alterna paleta clara ⇄ oscura (`body.a11y-dark`) sin perder identidad de marca.
+  - **Reducir movimiento** ✅ — clase `a11y-reduce-motion`.
+  - **Subrayar enlaces** ✅ — clase `a11y-underline`.
+  - **Restablecer** ✅ — botón `#a11yReset`.
+  - Los interruptores (modo oscuro, reducir movimiento, subrayar enlaces) se muestran como **toggle switch** (`<input type="checkbox" role="switch">`) ✅ implementado tal como se sugería.
 - Las preferencias se guardan en `localStorage` (igual que el carrito), sin necesitar cuenta de usuario.
 - El panel se puede cerrar con `Esc`, atrapa el foco mientras está abierto y devuelve el foco al botón que lo abrió al cerrarse.
 
@@ -188,11 +248,12 @@ Al vender a nivel nacional sin tienda física, el sitio web ES la tienda — si 
 - **Texto redimensionable**: el sitio no se rompe si el widget o el navegador aumentan el texto hasta 200%.
 - **Sin información solo por color**: "Nuevo" o "Últimas piezas" llevan también texto/ícono, no solo un color distinto.
 
-### 5.4 Otros elementos flotantes de apoyo
-- **Botón "Volver arriba"**: flecha hacia arriba, flotante, justo encima del botón de accesibilidad (misma esquina, inferior derecha). Aparece solo después de hacer scroll (no satura la pantalla al entrar a la página) y regresa al inicio de la página con un clic/tap.
-- **Redes sociales flotantes**: en la esquina inferior izquierda, en paralelo al botón de accesibilidad (misma altura, lado opuesto), tres íconos circulares pequeños apilados hacia arriba: WhatsApp, Instagram y Facebook. Son enlaces directos a cada red, no parte del footer.
-- **Selector de idioma (Español / Inglés)**: botón en la esquina superior derecha del encabezado, junto al ícono del carrito. Cambia todo el texto visible del sitio (menú, textos, categorías, carrito, panel de accesibilidad) y la preferencia se guarda en `localStorage`, igual que el carrito, para que la próxima visita respete el idioma elegido sin necesitar cuenta de usuario.
-- Nombres propios de producto (ej. "Anillo Aurora") no se traducen — es una práctica común incluso en catálogos multilingües reales; sí se traducen categorías, materiales, subcategorías y todo el texto de interfaz.
+### 5.4 Otros elementos flotantes de apoyo — ✅ todo implementado
+
+- **Botón "Volver arriba"** (`#backToTop`, `js/features/scroll.js`): flotante, justo encima del botón de accesibilidad (misma esquina, inferior derecha). Aparece solo después de ~400px de scroll y regresa al inicio con scroll suave.
+- **Redes sociales flotantes** (`.social-fab`, esquina inferior izquierda): tres íconos circulares — WhatsApp, Instagram y Facebook — apilados, con `rel="noopener noreferrer"`. Son enlaces directos a cada red, no parte del footer.
+- **Selector de idioma (Español / Inglés)** (`#langBtn`, junto al carrito en el header): cambia todo el texto visible del sitio vía `t()`/`translateDom()` (~115 claves en `js/config/i18n.js`) y la preferencia se guarda en `localStorage`, igual que el carrito.
+- Nombres propios de producto (ej. "Anillo Aurora") no se traducen; sí se traducen categorías, materiales, subcategorías y todo el texto de interfaz.
 
 ---
 
@@ -200,8 +261,8 @@ Al vender a nivel nacional sin tienda física, el sitio web ES la tienda — si 
 
 Al no haber backend ni base de datos, la superficie de ataque del sitio es pequeña, pero igual hay que cuidar varios puntos:
 
-- **HTTPS obligatorio** en el dominio final (certificado SSL) — sin esto, los navegadores marcan el sitio como "no seguro" y desalienta la compra.
-- **Enlaces externos seguros**: todo enlace que abra en pestaña nueva (redes sociales, WhatsApp) debe usar `rel="noopener noreferrer"` para evitar que la página de destino pueda manipular la pestaña de origen (*tabnabbing*).
+- **HTTPS obligatorio** en el dominio final (certificado SSL) — pendiente hasta el despliegue final; sin esto, los navegadores marcan el sitio como "no seguro" y desalienta la compra.
+- **Enlaces externos seguros** ✅ implementado: todos los `target="_blank"` (footer, íconos flotantes, contacto, envío de pedido por WhatsApp) ya usan `rel="noopener noreferrer"`.
 - **`localStorage` solo para datos no sensibles**: carrito, preferencias de accesibilidad e idioma — nunca contraseñas, datos de pago o información personal completa, ya que no está cifrado y es visible desde el navegador.
 - **Si más adelante se agrega un formulario** (contacto, newsletter): validar y sanitizar lo que se escribe antes de mostrarlo en cualquier parte del sitio (previene XSS), y agregar protección anti-spam básica (honeypot o captcha).
 - **Seguridad de las cuentas administrativas**: ya que no hay panel propio, activar verificación en dos pasos (2FA) en el hosting, el registrador del dominio, y las redes sociales/WhatsApp Business — son el único "acceso" a proteger.
@@ -213,22 +274,26 @@ Al no haber backend ni base de datos, la superficie de ataque del sitio es peque
 
 ## 7. Plan de Trabajo Sugerido (orden de ejecución)
 
-1. **Definir identidad de marca** (colores finales, tipografía, logo) — sección 4.1
-2. **Estructurar el catálogo** (subcategorías, atributos de filtro por categoría) — documento de catálogo aparte
-3. **Recolectar contenido e imágenes de producto** — documento de catálogo aparte
-4. **Maquetar Home** (landing persuasiva) — sección 4.2
-5. **Maquetar Catálogo y Ficha de producto**
-6. **Definir flujo de Carrito (localStorage) + pedido por WhatsApp, y métodos de envío** — sección 4.3
-7. **Construir páginas de Nosotros y Contacto** — secciones 4.4 y 4.5
-8. **Redactar políticas legales** — sección 4.6
-9. **Implementar widget de accesibilidad, selector de idioma y revisar criterios WCAG** — sección 5
-10. **Aplicar buenas prácticas de seguridad** (HTTPS, enlaces externos, 2FA en cuentas) — sección 6
-11. **Pruebas de usabilidad (incluyendo navegación por teclado y lector de pantalla) en móvil y escritorio antes de publicar**
+1. ✅ **Definir identidad de marca** (colores finales, tipografía, logo) — sección 4.1
+2. ✅ **Estructurar el catálogo** (9 categorías + subcategorías) — falta refinar atributos de filtro (precio, material, piedra)
+3. ⚠️ **Recolectar contenido e imágenes de producto reales** — el catálogo actual (211 productos) es data de ejemplo/placeholder, pendiente de reemplazar por productos reales de Creativas
+4. ✅ **Maquetar Home** (landing persuasiva, con video hero) — sección 4.2
+5. ✅ **Maquetar Categoría y Ficha de producto** — pendiente: galería multi-imagen en ficha de producto (hoy es una sola imagen)
+6. ✅ **Flujo de Carrito (localStorage) + pedido por WhatsApp, y métodos de envío** — sección 4.3 (carrito y checkout son la misma interfaz, ver sección 1)
+7. ✅ **Construir páginas de Nosotros y Contacto** — secciones 4.4 y 4.5
+8. ✅ **Redactar e implementar políticas legales** (`#/politicas`) — sección 4.6, falta política de privacidad
+9. ✅ **Implementar widget de accesibilidad y selector de idioma** — sección 5; falta auditoría formal de contraste WCAG AA sobre rosa palo/dorado
+10. ⚠️ **Aplicar buenas prácticas de seguridad**: enlaces externos con `rel="noopener noreferrer"` ✅; HTTPS y 2FA en cuentas pendientes hasta el despliegue — sección 6
+11. ⏳ **Pruebas de usabilidad** (teclado y lector de pantalla) en móvil y escritorio antes de publicar — pendiente
 
 ---
 
 ## 8. Próximo Paso
 
-Con este documento como guía, el siguiente paso es recopilar la información de la **sección 4.1 (Identidad de marca)** y definir la estructura del catálogo (subcategorías y contenido por producto) en el documento aparte, ya que son la base para diseñar el Home y la navegación del sitio.
-
-> El detalle de cada categoría (nombres de producto, precios, materiales, subcategorías) se documentará aparte, en un archivo dedicado al catálogo — este documento se mantiene como la guía general de estructura, diseño, accesibilidad y seguridad.
+Con la estructura del sitio ya construida, los pendientes reales son:
+1. Reemplazar el catálogo de ejemplo (`js/config/products.js`) por los productos reales de Creativas (fotos, precios, materiales).
+2. Agregar galería multi-imagen en la ficha de producto.
+3. Sumar filtros de precio/material y activar "Nuevo"/"Edición limitada" con datos reales.
+4. Redactar política de privacidad.
+5. Auditar contraste de color (WCAG AA) y probar navegación completa por teclado/lector de pantalla.
+6. Configurar HTTPS y 2FA en las cuentas (hosting, dominio, redes) al momento del despliegue.

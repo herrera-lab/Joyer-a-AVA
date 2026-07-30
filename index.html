@@ -3,14 +3,230 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Joyería AVA</title>
+    <title>Creativas — Tu esencia en un accesorio</title>
+    <meta
+      name="description"
+      content="Creativas: joyería y bisutería hecha a mano y sobre pedido en Costa Rica. Anillos, aretes, cadenas, collares, pulseras, relicarios y piezas personalizadas."
+    />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
-    <main>
-      <h1>Joyería AVA</h1>
-      <p>Proyecto base con estructura modular de scripts.</p>
+    <svg style="display: none" aria-hidden="true">
+      <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7L6 8Z" /><path d="M9 8V6a3 3 0 0 1 6 0v2" /></symbol>
+      <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="M21 21l-4.3-4.3" /></symbol>
+      <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 6h11v9H3z" /><path d="M14 10h4l3 3v2h-7z" /><circle cx="7" cy="18" r="1.6" /><circle cx="17.5" cy="18" r="1.6" /></symbol>
+      <symbol id="i-hand" viewBox="0 0 24 24"><path d="M4 12c2-4 5-6 8-6s6 2 8 6" /><circle cx="12" cy="10" r="3" /></symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z" /></symbol>
+      <symbol id="i-a11y" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="7.2" r="1.5" fill="currentColor" stroke="none" /><path d="M6 9.5c3 1 9 1 12 0" /><path d="M12 10.5v4l-2.6 5.4" /><path d="M12 14.5l2.6 4.9" /></symbol>
+      <symbol id="i-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5" /><path d="M6 11l6-6 6 6" /></symbol>
+      <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5" /><circle cx="12" cy="12" r="4" /><circle cx="16.3" cy="7.7" r=".8" fill="currentColor" stroke="none" /></symbol>
+      <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M7 17.2l-3.2 1 1-3.1a7.6 7.6 0 1 1 2.2 2.1Z" /><path d="M9 9.6c.2 2.2 2 4.3 4.3 4.6" /></symbol>
+      <symbol id="i-facebook" viewBox="0 0 24 24"><path d="M15.5 20v-7.2h2l.3-2.8h-2.3V8.2c0-.8.3-1.3 1.4-1.3h1V4.2C17.6 4.1 16.8 4 15.9 4 13.6 4 12 5.4 12 7.9v2.1H9.8v2.8H12V20Z" /></symbol>
+    </svg>
+
+    <a class="skip-link" href="#main-content" data-i18n="skip">Saltar al contenido principal</a>
+
+    <header class="nav">
+      <div class="wrap">
+        <a class="brand" href="#/">
+          <img src="images/LogoPrincipal.png" alt="Creativas" class="brand-logo" />
+        </a>
+
+        <nav aria-label="Principal" data-i18n-aria="nav_principal_aria">
+          <ul class="nav-links">
+            <li class="nav-dropdown">
+              <button
+                type="button"
+                id="collectionsToggle"
+                class="nav-dropdown-btn"
+                aria-haspopup="true"
+                aria-expanded="false"
+                data-i18n="nav_colecciones"
+              >
+                Colecciones
+              </button>
+              <ul id="collectionsMenu" class="nav-dropdown-menu" role="menu"></ul>
+            </li>
+            <li><a href="#/nosotros" data-i18n="nav_nosotros">Nosotros</a></li>
+            <li><a href="#/contacto" data-i18n="nav_contacto">Contacto</a></li>
+            <li><a href="#/politicas" data-i18n="nav_politicas">Políticas</a></li>
+          </ul>
+        </nav>
+
+        <div class="nav-right">
+          <div class="search-box">
+            <svg class="search-icon" aria-hidden="true"><use href="#i-search" /></svg>
+            <label class="sr-only" for="searchInput" data-i18n="search_aria">Buscar productos</label>
+            <input
+              type="search"
+              id="searchInput"
+              data-i18n-placeholder="search_placeholder"
+              placeholder="Buscar por nombre o categoría…"
+              autocomplete="off"
+            />
+            <div class="search-results" id="searchResults"></div>
+          </div>
+
+          <button class="lang-btn" id="langBtn" data-i18n-aria="lang_btn_aria" aria-label="Cambiar idioma a inglés">EN</button>
+
+          <button class="cart-btn" id="cartOpenBtn" data-i18n-aria="cart_aria" aria-label="Abrir carrito">
+            <svg><use href="#i-bag" /></svg>
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <div id="app"></div>
     </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-col">
+            <h3>Creativas</h3>
+            <p data-i18n="footer_brand_desc">
+              Joyería hecha sobre pedido, con envíos a todo Costa Rica. Cada pieza se fabrica cuando la pedís.
+            </p>
+          </div>
+          <div class="footer-col">
+            <h3 data-i18n="footer_nosotros_title">Nosotros</h3>
+            <ul>
+              <li><a href="#/nosotros" data-i18n="footer_link_historia">Nuestra historia</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3 data-i18n="footer_contacto_title">Contacto</h3>
+            <ul>
+              <li>
+                <a href="https://wa.me/50688083026" target="_blank" rel="noopener noreferrer" data-i18n="footer_link_whatsapp">WhatsApp</a>
+              </li>
+              <li>
+                <a href="https://www.instagram.com/creat_ivas/" target="_blank" rel="noopener noreferrer" data-i18n="footer_link_instagram">Instagram</a>
+              </li>
+              <li><a href="mailto:creativas.gd@gmail.com">creativas.gd@gmail.com</a></li>
+            </ul>
+          </div>
+          <div class="footer-col">
+            <h3 data-i18n="footer_politicas_title">Políticas</h3>
+            <ul>
+              <li><a href="#/politicas" data-i18n="footer_link_envios">Envíos</a></li>
+              <li><a href="#/politicas" data-i18n="footer_link_devoluciones">Cambios y devoluciones</a></li>
+              <li><a href="#/politicas" data-i18n="footer_link_terminos">Términos y condiciones</a></li>
+              <li><a href="#/politicas" data-i18n="footer_link_privacidad">Privacidad</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="footer-bottom">
+          <span data-i18n="footer_copyright">© Creativas</span>
+          <span data-i18n="footer_horario">Atención de lunes a sábado</span>
+        </div>
+      </div>
+    </footer>
+
+    <div class="scrim" id="scrim"></div>
+    <aside class="drawer" id="drawer" data-i18n-aria="cart_drawer_aria" aria-label="Carrito">
+      <div class="drawer-head">
+        <h3 data-i18n="cart_title">Tu pedido</h3>
+        <button class="drawer-close" id="drawerClose" data-i18n-aria="drawer_close_aria" aria-label="Cerrar carrito">&times;</button>
+      </div>
+      <div class="drawer-body" id="drawerBody"></div>
+      <div class="drawer-foot">
+        <div class="drawer-total"><span data-i18n="cart_subtotal">Subtotal</span><b id="drawerTotal">₡0</b></div>
+        <p class="wa-note-small" data-i18n="cart_shipping_note">
+          El envío (₡3.500 fuera de San Carlos / ₡4.200 dentro del cantón) se coordina por WhatsApp.
+        </p>
+        <button class="wa-btn" id="waBtn" data-i18n="wa_button" disabled>Enviar pedido por WhatsApp</button>
+        <p class="wa-note" data-i18n="wa_note">
+          Al enviar, se arma un mensaje con tu pedido para que la dueña lo confirme por WhatsApp — no hay pago en línea ni cuenta de usuario.
+        </p>
+      </div>
+    </aside>
+
+    <a
+      class="social-fab"
+      id="socialWhatsapp"
+      href="https://wa.me/50688083026"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-i18n-aria="social_whatsapp_aria"
+      aria-label="WhatsApp"
+    >
+      <svg><use href="#i-whatsapp" /></svg>
+    </a>
+    <a
+      class="social-fab"
+      id="socialInstagram"
+      href="https://www.instagram.com/creat_ivas/"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-i18n-aria="social_instagram_aria"
+      aria-label="Instagram"
+    >
+      <svg><use href="#i-instagram" /></svg>
+    </a>
+    <a
+      class="social-fab"
+      id="socialFacebook"
+      href="https://www.facebook.com/profile.php?id=100063504703009"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-i18n-aria="social_facebook_aria"
+      aria-label="Facebook"
+    >
+      <svg><use href="#i-facebook" /></svg>
+    </a>
+
+    <button class="a11y-fab back-to-top" id="backToTop" data-i18n-aria="back_to_top_aria" aria-label="Volver arriba">
+      <svg><use href="#i-arrow-up" /></svg>
+    </button>
+
+    <button
+      class="a11y-fab"
+      id="a11yFab"
+      data-i18n-aria="a11y_fab_aria"
+      aria-label="Abrir opciones de accesibilidad"
+      aria-haspopup="dialog"
+      aria-expanded="false"
+    >
+      <svg><use href="#i-a11y" /></svg>
+    </button>
+
+    <div class="a11y-panel" id="a11yPanel" role="dialog" aria-modal="true" aria-labelledby="a11yTitle">
+      <div class="a11y-panel-head">
+        <h3 id="a11yTitle" data-i18n="a11y_title">Accesibilidad</h3>
+        <button class="a11y-panel-close" id="a11yClose" data-i18n-aria="a11y_close_aria" aria-label="Cerrar accesibilidad">&times;</button>
+      </div>
+
+      <div class="a11y-group">
+        <span data-i18n="a11y_fontsize_label">Tamaño de letra</span>
+        <div class="a11y-fontsize" role="group" aria-label="Tamaño de letra">
+          <button type="button" data-fs="0" aria-pressed="true">A</button>
+          <button type="button" data-fs="1" aria-pressed="false">A+</button>
+          <button type="button" data-fs="2" aria-pressed="false">A++</button>
+        </div>
+      </div>
+
+      <div class="a11y-group">
+        <div class="a11y-row">
+          <label for="a11yDark" data-i18n="a11y_dark_label">Modo oscuro</label>
+          <input type="checkbox" id="a11yDark" role="switch" />
+        </div>
+        <div class="a11y-row">
+          <label for="a11yMotion" data-i18n="a11y_motion_label">Reducir movimiento</label>
+          <input type="checkbox" id="a11yMotion" role="switch" />
+        </div>
+        <div class="a11y-row">
+          <label for="a11yUnderline" data-i18n="a11y_underline_label">Subrayar enlaces</label>
+          <input type="checkbox" id="a11yUnderline" role="switch" />
+        </div>
+      </div>
+
+      <button class="a11y-reset" id="a11yReset" data-i18n="a11y_reset" type="button">Restablecer todo</button>
+    </div>
+
+    <div class="toast" id="toast"></div>
 
     <script type="module" src="./js/main.js"></script>
   </body>

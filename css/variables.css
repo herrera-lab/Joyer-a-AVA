@@ -1,15 +1,59 @@
 :root {
-  --color-primary: #e8c4c4;
-  --color-primary-strong: #d9aeb0;
-  --color-background: #fffaf8;
-  --color-surface: #ffffff;
-  --color-text: #3f2f2f;
-  --color-muted: #7a6b6b;
-  --color-accent: #c79d4e;
-  --color-border: #f0e0e0;
-  --radius-sm: 0.5rem;
-  --radius-md: 0.9rem;
-  --radius-lg: 1.2rem;
-  --shadow-sm: 0 8px 24px rgba(63, 47, 47, 0.08);
+  --ivory: #fbf7f2;
+  --ivory-deep: #f3eae1;
+  --rose: #e8c4c4;
+  --rose-tint: #f6e9e9;
+  --rose-deep: #a85b5f;
+  --gold: #ad813f;
+  --gold-line: #d8c39c;
+  --ink: #2e2624;
+  --ink-soft: #6b5c56;
+
+  --footer-bg: #2e2624;
+  --footer-text: #fbf7f2;
+  --footer-text-soft: rgba(251, 247, 242, 0.7);
+  --footer-heading: #d8b573;
+  --footer-line: rgba(216, 195, 156, 0.28);
+  --nav-bg: rgba(251, 247, 242, 0.9);
+
+  --font-display: Georgia, 'Times New Roman', 'Bodoni MT', serif;
+  --font-body: 'Segoe UI', Corbel, 'Trebuchet MS', Avenir, sans-serif;
+
   --container: 1180px;
+  --radius-sm: 4px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --shadow-sm: 0 8px 24px rgba(46, 38, 36, 0.1);
+
+  color-scheme: light;
+}
+
+/* ---------- Modo oscuro (widget de accesibilidad) ---------- */
+body.a11y-dark {
+  --ivory: #211a18;
+  --ivory-deep: #170f0d;
+  --rose: #4a3234;
+  --rose-tint: #2e2224;
+  --rose-deep: #e5a6a6;
+  --gold: #d8b573;
+  --gold-line: #4a3b2a;
+  --ink: #f3eae1;
+  --ink-soft: #c9b8b2;
+
+  --footer-bg: #120c0b;
+  --footer-text: #f3eae1;
+  --footer-text-soft: rgba(243, 234, 225, 0.62);
+  --footer-heading: #d8b573;
+  --footer-line: rgba(216, 195, 156, 0.2);
+  --nav-bg: rgba(23, 17, 15, 0.9);
+
+  color-scheme: dark;
+}
+
+/* ---------- Escala de tamaño de letra (widget de accesibilidad) ---------- */
+html.a11y-fs-1 {
+  font-size: 108%;
+}
+html.a11y-fs-2 {
+  font-size: 118%;
 }

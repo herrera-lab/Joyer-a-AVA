@@ -8,10 +8,26 @@ html {
 
 body {
   margin: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: var(--color-background);
-  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  background: var(--ivory);
+  color: var(--ink);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  margin: 0 0 0.6em;
+  line-height: 1.15;
+}
+
+p {
+  margin: 0 0 1em;
 }
 
 a {
@@ -26,10 +42,114 @@ img {
 
 button,
 input,
-select {
+select,
+textarea {
   font: inherit;
+  color: inherit;
 }
 
-main {
-  padding-bottom: 4rem;
+button {
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+::selection {
+  background: var(--rose);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: fixed;
+  top: -60px;
+  left: 12px;
+  z-index: 100;
+  background: var(--ink);
+  color: var(--ivory);
+  padding: 12px 20px;
+  font-size: 0.85rem;
+  transition: top 0.15s ease;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ---------- Reducir movimiento (widget de accesibilidad) ---------- */
+body.a11y-reduce-motion * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+body.a11y-reduce-motion .cat-row,
+body.a11y-reduce-motion .intro,
+body.a11y-reduce-motion .about-section,
+body.a11y-reduce-motion .contact-section,
+body.a11y-reduce-motion .policy-section {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ---------- Subrayar enlaces (widget de accesibilidad) ---------- */
+body.a11y-underline a {
+  text-decoration: underline !important;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Zonas de toque mínimas (WCAG 2.5.5) ---------- */
+.chip,
+.add-btn,
+.cat-cta-label,
+.drawer-close,
+.remove,
+.cart-btn,
+.lang-btn,
+.back-btn,
+.wa-btn,
+.hero-cta,
+.a11y-fab,
+.a11y-panel button,
+.a11y-panel label,
+.nav-dropdown-btn {
+  min-height: 44px;
+}
+
+.drawer-close,
+.cart-btn,
+.a11y-fab {
+  min-width: 44px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rose-deep);
+  font-weight: 600;
+  margin-bottom: 6px;
 }

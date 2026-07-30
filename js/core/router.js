@@ -1,7 +1,9 @@
-import { routeMap } from '../config/routes.js';
-import { getPageKey } from '../utils/helpers.js';
+import { matchRoute } from '../config/routes.js';
 
-export function resolvePage(pathname = typeof window !== 'undefined' ? window.location.pathname : '/') {
-  const key = getPageKey(pathname);
-  return routeMap[key] || 'home';
+export function getCurrentRoute() {
+  return matchRoute(window.location.hash);
+}
+
+export function onRouteChange(callback) {
+  window.addEventListener('hashchange', () => callback(getCurrentRoute()));
 }

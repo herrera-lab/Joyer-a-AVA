@@ -1,13 +1,93 @@
-import { getFeaturedProducts } from '../features/catalog.js';
-import { initAccessibility } from '../features/accessibility.js';
-import { initI18n } from '../features/i18n.js';
-import { initScrollEffects } from '../features/scroll.js';
+import { getCategories, getFeaturedMinis } from '../features/catalog.js';
+import { t, translateDom } from '../features/i18n.js';
+import { state } from '../core/state.js';
+import { formatPrice } from '../utils/format.js';
+import { escapeHtml, qs } from '../utils/dom.js';
+import { ROUTES } from '../config/routes.js';
+import { BRAND } from '../config/constants.js';
 
-export function homePage() {
-  const products = getFeaturedProducts();
-  console.log('Home inicializada con productos destacados', products);
+function categoryRowHtml(category) {
+  const label = state.language === 'en' ? category.label_en : category.label_es;
+  const tagline = state.language === 'en' ? category.tagline_en : category.tagline_es;
+  const minis = getFeaturedMinis(category.slug, 3);
 
-  initAccessibility();
-  initI18n();
-  initScrollEffects();
+  return `
+    <div class="cat-row" data-reveal>
+      <div class="cat-row-inner">
+        <div class="cat-visual">
+          <img src="${category.banner}" alt="${escapeHtml(label)}" loading="lazy" />
+        </div>
+        <div class="cat-text">
+          <span class="eyebrow">${t('nav_colecciones')}</span>
+          <h2>${escapeHtml(label)}</h2>
+          <p class="tagline">${escapeHtml(tagline)}</p>
+          <div class="cat-minis">
+            ${minis
+              .map(
+                (p) => `
+              <a class="cat-mini" href="${ROUTES.product(p.id)}">
+                <span class="swatch"><img src="${p.image}" alt="${escapeHtml(p.name)}" loading="lazy" /></span>
+                <span class="name">${escapeHtml(p.name)}</span>
+                <span class="price">${formatPrice(p.price, state.language)}</span>
+              </a>`
+              )
+              .join('')}
+          </div>
+          <a class="cat-cta-label" href="${ROUTES.category(category.slug)}">${t('ver_coleccion')}</a>
+        </div>
+      </div>
+    </div>`;
+}
+
+export function renderHome(container) {
+  const lead = state.language === 'en' ? BRAND.valueProp_en : BRAND.valueProp_es;
+
+  container.innerHTML = `
+    <section class="hero">
+      <video class="hero-video" autoplay muted loop playsinline poster="${BRAND.logo}">
+        <source src="${BRAND.heroVideo}" type="video/mp4" />
+      </video>
+      <div class="hero-overlay"></div>
+      <div class="wrap hero-content">
+        <img class="hero-logo" src="${BRAND.logo}" alt="${BRAND.name}" />
+        <h1>${escapeHtml(state.language === 'en' ? BRAND.slogan_en : BRAND.slogan_es)}</h1>
+        <button class="hero-cta" type="button" id="heroCta" data-i18n="hero_cta">${t('hero_cta')}</button>
+      </div>
+    </section>
+
+    <section class="intro" data-reveal>
+      <div class="wrap">
+        <p class="lead">${escapeHtml(lead)}</p>
+      </div>
+    </section>
+
+    <section class="categories" id="categories" aria-label="${t('nav_colecciones')}">
+      <div class="wrap" id="catRows">
+        ${getCategories().map(categoryRowHtml).join('')}
+      </div>
+    </section>
+
+    <section class="trust" id="trust" aria-label="${t('trust_section_aria')}">
+      <div class="wrap">
+        <div class="trust-item">
+          <span class="eyebrow">${t('trust_envio_title')}</span>
+          <p>${t('trust_envio_body')}</p>
+        </div>
+        <div class="trust-item">
+          <span class="eyebrow">${t('trust_hecho_title')}</span>
+          <p>${t('trust_hecho_body')}</p>
+        </div>
+        <div class="trust-item">
+          <span class="eyebrow">${t('trust_pago_title')}</span>
+          <p>${t('trust_pago_body')}</p>
+        </div>
+      </div>
+    </section>
+  `;
+
+  qs('#heroCta', container)?.addEventListener('click', () => {
+    qs('#categories')?.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  translateDom(container);
 }

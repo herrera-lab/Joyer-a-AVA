@@ -1,12 +1,18 @@
-import { sampleProducts } from '../config/products.js';
+import { PRODUCTS, CATEGORIES } from '../config/products.js';
 
 export function searchProducts(term) {
   const normalized = term.trim().toLowerCase();
+  if (!normalized) return [];
 
-  if (!normalized) return sampleProducts;
+  const categoryMatch = CATEGORIES.filter(
+    (c) =>
+      c.label_es.toLowerCase().includes(normalized) || c.label_en.toLowerCase().includes(normalized)
+  ).map((c) => c.slug);
 
-  return sampleProducts.filter(product =>
-    product.name.toLowerCase().includes(normalized) ||
-    product.description.toLowerCase().includes(normalized)
-  );
+  return PRODUCTS.filter(
+    (p) =>
+      p.name.toLowerCase().includes(normalized) ||
+      p.material_es.toLowerCase().includes(normalized) ||
+      categoryMatch.includes(p.category)
+  ).slice(0, 8);
 }

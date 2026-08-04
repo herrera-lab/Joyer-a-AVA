@@ -1,3 +1,3 @@
 export function initCheckout() {
-  console.log('Módulo de checkout listo');
+  // Placeholder para funcionalidad de checkout futura
 }

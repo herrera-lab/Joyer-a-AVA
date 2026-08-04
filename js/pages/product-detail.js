@@ -82,7 +82,7 @@ export function renderProductDetail(container, params) {
       <div class="product-detail-grid">
         <div class="product-gallery">
           <div class="product-gallery-main">
-            <img src="${product.image}" alt="${escapeHtml(product.name)} — ${escapeHtml(material)}" />
+            <img src="${product.image}" alt="${escapeHtml(product.name)} — ${escapeHtml(material)}" loading="eager" decoding="async" width="900" height="900" />
           </div>
         </div>
 

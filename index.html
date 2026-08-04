@@ -9,9 +9,8 @@
       content="Creativas: joyería y bisutería hecha a mano y sobre pedido en Costa Rica. Anillos, aretes, cadenas, collares, pulseras, relicarios y piezas personalizadas."
     />
     <link rel="icon" href="./favicon.png" type="image/png" />
-    <link rel="shortcut icon" href="./favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="./favicon.png" />
-    <link rel="icon" href="./images/Logo%20creativas%202.png" type="image/png" />
+    <link rel="preload" as="image" href="./images/LogoPrincipal.png" />
     <link rel="stylesheet" href="./css/style.css" />
   </head>
   <body>
@@ -33,31 +32,10 @@
     <header class="nav">
       <div class="wrap">
         <a class="brand" href="#/">
-          <img src="images/LogoPrincipal.png" alt="Creativas" class="brand-logo" />
+          <img src="images/LogoPrincipal.png" alt="Creativas" class="brand-logo" loading="eager" decoding="async" fetchpriority="high" width="120" height="120" />
         </a>
 
-        <nav aria-label="Principal" data-i18n-aria="nav_principal_aria">
-          <ul class="nav-links">
-            <li class="nav-dropdown">
-              <button
-                type="button"
-                id="collectionsToggle"
-                class="nav-dropdown-btn"
-                aria-haspopup="true"
-                aria-expanded="false"
-                data-i18n="nav_colecciones"
-              >
-                Colecciones
-              </button>
-              <ul id="collectionsMenu" class="nav-dropdown-menu" role="menu"></ul>
-            </li>
-            <li><a href="#/nosotros" data-i18n="nav_nosotros">Nosotros</a></li>
-            <li><a href="#/contacto" data-i18n="nav_contacto">Contacto</a></li>
-            <li><a href="#/politicas" data-i18n="nav_politicas">Políticas</a></li>
-          </ul>
-        </nav>
-
-        <div class="nav-right">
+        <div class="header-actions">
           <div class="search-box">
             <svg class="search-icon" aria-hidden="true"><use href="#i-search" /></svg>
             <label class="sr-only" for="searchInput" data-i18n="search_aria">Buscar productos</label>
@@ -77,6 +55,35 @@
             <svg><use href="#i-bag" /></svg>
             <span class="cart-count">0</span>
           </button>
+
+          <button class="nav-toggle" id="navToggle" type="button" aria-expanded="false" aria-controls="navMenu" aria-label="Abrir menú">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+
+        <div class="nav-menu" id="navMenu">
+          <nav aria-label="Principal" data-i18n-aria="nav_principal_aria">
+            <ul class="nav-links">
+              <li class="nav-dropdown">
+                <button
+                  type="button"
+                  id="collectionsToggle"
+                  class="nav-dropdown-btn"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                  data-i18n="nav_colecciones"
+                >
+                  Colecciones
+                </button>
+                <ul id="collectionsMenu" class="nav-dropdown-menu" role="menu"></ul>
+              </li>
+              <li><a href="#/nosotros" data-i18n="nav_nosotros">Nosotros</a></li>
+              <li><a href="#/contacto" data-i18n="nav_contacto">Contacto</a></li>
+              <li><a href="#/politicas" data-i18n="nav_politicas">Políticas</a></li>
+            </ul>
+          </nav>
         </div>
       </div>
     </header>
@@ -148,39 +155,49 @@
       </div>
     </aside>
 
-    <a
-      class="social-fab"
-      id="socialWhatsapp"
-      href="https://wa.me/50688083026"
-      target="_blank"
-      rel="noopener noreferrer"
-      data-i18n-aria="social_whatsapp_aria"
-      aria-label="WhatsApp"
-    >
-      <svg><use href="#i-whatsapp" /></svg>
-    </a>
-    <a
-      class="social-fab"
-      id="socialInstagram"
-      href="https://www.instagram.com/creat_ivas/"
-      target="_blank"
-      rel="noopener noreferrer"
-      data-i18n-aria="social_instagram_aria"
-      aria-label="Instagram"
-    >
-      <svg><use href="#i-instagram" /></svg>
-    </a>
-    <a
-      class="social-fab"
-      id="socialFacebook"
-      href="https://www.facebook.com/profile.php?id=100063504703009"
-      target="_blank"
-      rel="noopener noreferrer"
-      data-i18n-aria="social_facebook_aria"
-      aria-label="Facebook"
-    >
-      <svg><use href="#i-facebook" /></svg>
-    </a>
+    <div class="social-fab-group" id="socialFabGroup" aria-label="Redes sociales">
+      <button class="social-fab social-fab-main" id="socialMainBtn" type="button" aria-expanded="false" aria-controls="socialMenu" aria-label="Abrir redes sociales">
+        <svg><use href="#i-whatsapp" /></svg>
+      </button>
+      <div class="social-fab-menu" id="socialMenu" role="menu">
+        <a
+          class="social-fab social-fab-item"
+          id="socialWhatsapp"
+          href="https://wa.me/50688083026"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-i18n-aria="social_whatsapp_aria"
+          aria-label="WhatsApp"
+          role="menuitem"
+        >
+          <svg><use href="#i-whatsapp" /></svg>
+        </a>
+        <a
+          class="social-fab social-fab-item"
+          id="socialInstagram"
+          href="https://www.instagram.com/creat_ivas/"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-i18n-aria="social_instagram_aria"
+          aria-label="Instagram"
+          role="menuitem"
+        >
+          <svg><use href="#i-instagram" /></svg>
+        </a>
+        <a
+          class="social-fab social-fab-item"
+          id="socialFacebook"
+          href="https://www.facebook.com/profile.php?id=100063504703009"
+          target="_blank"
+          rel="noopener noreferrer"
+          data-i18n-aria="social_facebook_aria"
+          aria-label="Facebook"
+          role="menuitem"
+        >
+          <svg><use href="#i-facebook" /></svg>
+        </a>
+      </div>
+    </div>
 
     <button class="a11y-fab back-to-top" id="backToTop" data-i18n-aria="back_to_top_aria" aria-label="Volver arriba">
       <svg><use href="#i-arrow-up" /></svg>

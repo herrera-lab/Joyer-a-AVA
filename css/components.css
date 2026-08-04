@@ -55,7 +55,7 @@
 /* ---------- Tarjeta de producto ---------- */
 .product-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr));
   gap: 26px;
   padding-block: 28px 60px;
 }
@@ -312,10 +312,17 @@
 }
 
 /* ---------- Floating: accesibilidad, volver arriba, redes ---------- */
-.social-fab {
+.social-fab-group {
   position: fixed;
   left: 20px;
+  bottom: 20px;
   z-index: 70;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 10px;
+}
+
+.social-fab {
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -326,7 +333,7 @@
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-sm);
-  transition: background 0.15s ease;
+  transition: background 0.15s ease, transform 0.2s ease, opacity 0.2s ease;
 }
 
 .social-fab:hover {
@@ -341,14 +348,32 @@
   stroke-width: 1.5;
 }
 
-#socialWhatsapp {
-  bottom: 20px;
+.social-fab-main {
+  position: relative;
 }
-#socialInstagram {
-  bottom: 84px;
+
+.social-fab-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
-#socialFacebook {
-  bottom: 148px;
+
+.social-fab-group.is-open .social-fab-menu {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.social-fab-item {
+  transform: scale(0.96);
+}
+
+.social-fab-group.is-open .social-fab-item {
+  transform: scale(1);
 }
 
 .a11y-fab {
@@ -558,10 +583,10 @@
     width: 46px;
     height: 46px;
   }
-  #socialInstagram {
-    bottom: 76px;
-  }
-  #socialFacebook {
-    bottom: 132px;
+
+  .social-fab-group {
+    left: 16px;
+    bottom: 16px;
+    gap: 8px;
   }
 }

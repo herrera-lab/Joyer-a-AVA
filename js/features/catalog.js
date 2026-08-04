@@ -56,7 +56,7 @@ export function productCardHtml(product) {
   return `
     <article class="product-card">
       <a class="product-photo" href="${ROUTES.product(product.id)}" aria-label="${name}">
-        <img src="${product.image}" alt="${name}" loading="lazy" />
+        <img src="${product.image}" alt="${name}" loading="lazy" decoding="async" width="600" height="600" />
         ${badges}
       </a>
       <a class="product-name" href="${ROUTES.product(product.id)}">${name}</a>

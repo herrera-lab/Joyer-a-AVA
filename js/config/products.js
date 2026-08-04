@@ -1,9 +1,5 @@
 ﻿// ============================================================================
-// Catálogo generado automáticamente a partir de las fotos en /images.
-// PRECIO, MATERIAL, TIEMPO DE FABRICACIÓN Y NOMBRE SON DE EJEMPLO (FICTICIOS).
-// Reemplazar cada entrada por los datos reales del catálogo antes de publicar.
-// Generado con scripts de scaffolding, no editar a mano — regenerar si cambian
-// las fotos en /images.
+// Catálogo de productos - Actualizar con datos reales antes de publicar
 // ============================================================================
 export const CATEGORIES = [
   {
@@ -170,8 +166,6 @@ export const CATEGORIES = [
   }
 ];
 
-
-//Precios anillos
 export const PRODUCTS = [
   {
     "id": "anillos-01",
@@ -286,7 +280,6 @@ export const PRODUCTS = [
     "isLimited": false
   },
 
-  // Precios aretes
   {
     "id": "aretes-01",
     "category": "aretes",
@@ -784,7 +777,6 @@ export const PRODUCTS = [
     "isLimited": false
   },
 
-  //Precios cadenas
   {
     "id": "cadenas-01",
     "category": "cadenas",
@@ -1234,7 +1226,6 @@ export const PRODUCTS = [
     "isLimited": false
   },
 
-  //Precio collares
   {
     "id": "collares-01",
     "category": "collares",
@@ -2518,7 +2509,6 @@ export const PRODUCTS = [
     "isLimited": false
   },
 
-  //Precio relicarios
   {
     "id": "relicarios-01",
     "category": "relicarios",
@@ -2664,7 +2654,6 @@ export const PRODUCTS = [
     "isLimited": false
   },
 
-  // Precios piezas personalizadas
   {
     "id": "personalizados-01",
     "category": "personalizados",
@@ -3210,7 +3199,6 @@ export const PRODUCTS = [
     "isLimited": false
   },
 
-  // Precios piezas para hombres
   {
     "id": "hombres-01",
     "category": "hombres",
@@ -3436,7 +3424,6 @@ export const PRODUCTS = [
     "isLimited": false
   },
 
-  // Precios piezas para mascotas
   {
     "id": "mascotas-01",
     "category": "mascotas",

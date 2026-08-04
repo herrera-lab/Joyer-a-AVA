@@ -1,5 +1,4 @@
-// Rutas basadas en hash (#/...) para poder alojar el sitio en cualquier
-// hosting estático sin configurar redirecciones del servidor.
+// Rutas con hash para hosting estático
 export const ROUTES = {
   home: () => '#/',
   category: (slug) => `#/categoria/${slug}`,

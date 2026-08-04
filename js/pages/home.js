@@ -15,7 +15,7 @@ function categoryRowHtml(category) {
     <div class="cat-row" data-reveal>
       <div class="cat-row-inner">
         <div class="cat-visual">
-          <img src="${category.banner}" alt="${escapeHtml(label)}" loading="lazy" />
+          <img src="${category.banner}" alt="${escapeHtml(label)}" loading="lazy" decoding="async" width="800" height="600" />
         </div>
         <div class="cat-text">
           <span class="eyebrow">${t('nav_colecciones')}</span>
@@ -26,7 +26,7 @@ function categoryRowHtml(category) {
               .map(
                 (p) => `
               <a class="cat-mini" href="${ROUTES.product(p.id)}">
-                <span class="swatch"><img src="${p.image}" alt="${escapeHtml(p.name)}" loading="lazy" /></span>
+                <span class="swatch"><img src="${p.image}" alt="${escapeHtml(p.name)}" loading="lazy" decoding="async" width="240" height="240" /></span>
                 <span class="name">${escapeHtml(p.name)}</span>
                 <span class="price">${formatPrice(p.price, state.language)}</span>
               </a>`
@@ -44,12 +44,13 @@ export function renderHome(container) {
 
   container.innerHTML = `
     <section class="hero">
-      <video class="hero-video" autoplay muted loop playsinline poster="${BRAND.logo}">
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect fill='%232e2624' width='16' height='9'/%3E%3C/svg%3E">
         <source src="${BRAND.heroVideo}" type="video/mp4" />
+        <p>${t('hero_video_fallback')}</p>
       </video>
       <div class="hero-overlay"></div>
       <div class="wrap hero-content">
-        <img class="hero-logo" src="${BRAND.logo}" alt="${BRAND.name}" />
+        <img class="hero-logo" src="${BRAND.logo}" alt="${BRAND.name}" loading="lazy" decoding="async" width="480" height="480" />
         <h1>${escapeHtml(state.language === 'en' ? BRAND.slogan_en : BRAND.slogan_es)}</h1>
         <button class="hero-cta" type="button" id="heroCta" data-i18n="hero_cta">${t('hero_cta')}</button>
       </div>

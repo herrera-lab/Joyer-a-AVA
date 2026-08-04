@@ -11,7 +11,7 @@ function itemRowHtml(item) {
   const variant = item.variant ? ` — ${escapeHtml(item.variant)}` : '';
   return `
     <div class="drawer-item" data-line="${item.id}|${item.variant || ''}">
-      <div class="thumb"><img src="${item.image}" alt="${escapeHtml(item.name)}" /></div>
+      <div class="thumb"><img src="${item.image}" alt="${escapeHtml(item.name)}" loading="lazy" decoding="async" width="120" height="120" /></div>
       <div class="info">
         <p class="name">${escapeHtml(item.name)}${variant}</p>
         <p class="price">${formatPrice(item.price, state.language)}</p>

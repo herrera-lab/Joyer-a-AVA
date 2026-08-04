@@ -58,6 +58,18 @@ export function renderProductDetail(container, params) {
   const material = state.language === 'en' ? product.material_en : product.material_es;
   const related = getRelatedProducts(product, 4);
   const lang = state.language;
+  const hiddenMaterialCategories = new Set([
+    'anillos',
+    'cadenas',
+    'pulseras',
+    'personalizados',
+    'mascotas',
+    'aretes',
+    'collares',
+    'relicarios',
+    'hombres'
+  ]);
+  const showMaterial = !hiddenMaterialCategories.has(product.category);
 
   container.innerHTML = `
     <main class="wrap product-detail">
@@ -86,11 +98,11 @@ export function renderProductDetail(container, params) {
           </p>
 
           <dl class="spec-list">
-            <div><dt>${t('product_material_label')}</dt><dd>${escapeHtml(material)}</dd></div>
+            ${showMaterial ? `<div><dt>${t('product_material_label')}</dt><dd>${escapeHtml(material)}</dd></div>` : ''}
             <div><dt>${t('product_dimensions_label')}</dt><dd>${escapeHtml(
               lang === 'en' ? product.dimensions_en : product.dimensions_es
             )}</dd></div>
-            <div><dt>${t('product_weeks_label')}</dt><dd>${formatWeeks(product.weeks, lang)}</dd></div>
+            ${showMaterial ? `<div><dt>${t('product_weeks_label')}</dt><dd>${formatWeeks(product.weeks, lang)}</dd></div>` : ''}
           </dl>
 
           ${variantSelectHtml(product.category)}

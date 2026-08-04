@@ -8,7 +8,10 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
   transition: all 0.2s ease;
-  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
 }
 
 .add-btn:hover {

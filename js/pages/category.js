@@ -14,8 +14,11 @@ export function renderCategory(container, params) {
 
   const label = state.language === 'en' ? category.label_en : category.label_es;
   const tagline = state.language === 'en' ? category.tagline_en : category.tagline_es;
-  const subcatsEs = category.subcats_es;
-  const subcatsLabel = state.language === 'en' ? category.subcats_en : category.subcats_es;
+  const hiddenSubcats = new Set(['Diario', 'Compromiso', 'Ajustables', 'Everyday', 'Engagement', 'Adjustable']);
+  const subcats = (category.subcats_es || []).map((sub, index) => ({
+    value: sub,
+    label: state.language === 'en' ? category.subcats_en[index] : sub
+  })).filter(({ value, label }) => !hiddenSubcats.has(value) && !hiddenSubcats.has(label));
 
   let activeSub = null;
   let activeSort = 'relevancia';
@@ -34,12 +37,6 @@ export function renderCategory(container, params) {
       <div class="filter-bar">
         <div class="subcat-row" role="group" aria-label="${t('subcat_filter_aria')}">
           <button class="chip" type="button" data-sub="" aria-pressed="true">${t('subcat_all')}</button>
-          ${subcatsEs
-            .map(
-              (sub, i) =>
-                `<button class="chip" type="button" data-sub="${escapeHtml(sub)}" aria-pressed="false">${escapeHtml(subcatsLabel[i])}</button>`
-            )
-            .join('')}
         </div>
         <label class="sort-select">
           <span class="sr-only">${t('sort_label')}</span>

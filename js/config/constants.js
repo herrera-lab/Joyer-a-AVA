@@ -34,8 +34,8 @@ export function waLink(message) {
 
 export const SHIPPING = {
   carrier_es: 'Correos de Costa Rica',
-  outsideSanCarlos: 3500,
-  withinSanCarlos: 4200,
+  outsideSanCarlos: 4200,
+  withinSanCarlos: 3500,
   note_es:
     'El seguimiento del envío se proporciona una vez confirmado el pago y finalizada la elaboración del pedido.'
 };
@@ -43,8 +43,8 @@ export const SHIPPING = {
 export const POLICIES = {
   shipping_es: [
     'Envíos a todo Costa Rica mediante Correos de Costa Rica.',
-    '₡3.500 a cualquier parte del país fuera de San Carlos.',
-    '₡4.200 dentro del cantón de San Carlos.',
+    '₡4.200 a cualquier parte del país fuera de San Carlos.',
+    '₡3.500 dentro del cantón de San Carlos.',
     'El seguimiento del envío se proporciona una vez confirmado el pago y finalizada la elaboración del pedido.'
   ],
   returns_es: [

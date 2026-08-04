@@ -57,7 +57,7 @@ export const STRINGS = {
     cart_empty: 'Tu carrito está vacío por ahora.',
     cart_subtotal: 'Subtotal',
     cart_shipping_note:
-      'El envío (₡3.500 fuera de San Carlos / ₡4.200 dentro del cantón) se coordina por WhatsApp.',
+      'El envío (₡4.200 fuera de San Carlos / ₡3.500 dentro del cantón) se coordina por WhatsApp.',
     wa_button: 'Enviar pedido por WhatsApp',
     wa_note:
       'Al enviar, se arma un mensaje con tu pedido para que la dueña lo confirme por WhatsApp — no hay pago en línea ni cuenta de usuario.',

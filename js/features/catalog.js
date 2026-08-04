@@ -40,6 +40,18 @@ export function productCardHtml(product) {
     product.isNew ? `<span class="badge badge--new">${t('badge_nuevo')}</span>` : '',
     product.isLimited ? `<span class="badge badge--limited">${t('badge_limitada')}</span>` : ''
   ].join('');
+  const hiddenMaterialCategories = new Set([
+    'anillos',
+    'cadenas',
+    'pulseras',
+    'personalizados',
+    'mascotas',
+    'aretes',
+    'collares',
+    'relicarios',
+    'hombres'
+  ]);
+  const showMaterial = !hiddenMaterialCategories.has(product.category);
 
   return `
     <article class="product-card">
@@ -48,9 +60,7 @@ export function productCardHtml(product) {
         ${badges}
       </a>
       <a class="product-name" href="${ROUTES.product(product.id)}">${name}</a>
-      <p class="product-meta">${escapeHtml(
-        state.language === 'en' ? product.material_en : product.material_es
-      )}</p>
+      ${showMaterial ? `<p class="product-meta">${escapeHtml(state.language === 'en' ? product.material_en : product.material_es)}</p>` : ''}
       <p class="product-price">${formatPrice(product.price, state.language)}</p>
       <button class="add-btn" type="button" data-add-to-cart="${product.id}">${t('add_to_cart')}</button>
     </article>`;

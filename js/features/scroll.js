@@ -1,22 +1,4 @@
-import { qs, qsa } from '../utils/dom.js';
-
-let backToTopWired = false;
-
-export function initBackToTop() {
-  if (backToTopWired) return;
-  backToTopWired = true;
-
-  const button = qs('#backToTop');
-  if (!button) return;
-
-  window.addEventListener('scroll', () => {
-    button.classList.toggle('show', window.scrollY > 400);
-  });
-
-  button.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-}
+import { qsa } from '../utils/dom.js';
 
 export function initRevealOnScroll(scope = document) {
   const items = qsa('[data-reveal]', scope);

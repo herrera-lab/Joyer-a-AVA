@@ -14,13 +14,7 @@ export function renderCategory(container, params) {
 
   const label = state.language === 'en' ? category.label_en : category.label_es;
   const tagline = state.language === 'en' ? category.tagline_en : category.tagline_es;
-  const hiddenSubcats = new Set(['Diario', 'Compromiso', 'Ajustables', 'Everyday', 'Engagement', 'Adjustable']);
-  const subcats = (category.subcats_es || []).map((sub, index) => ({
-    value: sub,
-    label: state.language === 'en' ? category.subcats_en[index] : sub
-  })).filter(({ value, label }) => !hiddenSubcats.has(value) && !hiddenSubcats.has(label));
 
-  let activeSub = null;
   let activeSort = 'relevancia';
 
   container.innerHTML = `
@@ -35,18 +29,10 @@ export function renderCategory(container, params) {
       </div>
 
       <div class="filter-bar">
-        <div class="subcat-row" role="group" aria-label="${t('subcat_filter_aria')}">
-          <button class="chip" type="button" data-sub="" aria-pressed="true">${t('subcat_all')}</button>
+        <div class="sort-row" role="group" aria-label="${t('sort_label')}">
+          <button class="chip" type="button" data-sort="precio_asc" aria-pressed="false">${t('sort_precio_asc')}</button>
+          <button class="chip" type="button" data-sort="precio_desc" aria-pressed="false">${t('sort_precio_desc')}</button>
         </div>
-        <label class="sort-select">
-          <span class="sr-only">${t('sort_label')}</span>
-          <select id="sortSelect">
-            <option value="relevancia">${t('sort_relevancia')}</option>
-            <option value="precio_asc">${t('sort_precio_asc')}</option>
-            <option value="precio_desc">${t('sort_precio_desc')}</option>
-            <option value="nuevo">${t('sort_nuevo')}</option>
-          </select>
-        </label>
       </div>
 
       <div class="product-grid" id="productGrid"></div>
@@ -54,7 +40,7 @@ export function renderCategory(container, params) {
   `;
 
   function renderGrid() {
-    const products = sortProducts(getProductsByCategory(category.slug, activeSub || null), activeSort);
+    const products = sortProducts(getProductsByCategory(category.slug, null), activeSort);
     const grid = qs('#productGrid', container);
     grid.innerHTML =
       products.length > 0
@@ -62,17 +48,13 @@ export function renderCategory(container, params) {
         : `<p class="empty-state">${t('empty_category')}</p>`;
   }
 
-  qsa('.chip', container).forEach((chip) => {
+  qsa('.sort-row .chip', container).forEach((chip) => {
     chip.addEventListener('click', () => {
-      activeSub = chip.dataset.sub || null;
-      qsa('.chip', container).forEach((c) => c.setAttribute('aria-pressed', String(c === chip)));
+      const isActive = chip.getAttribute('aria-pressed') === 'true';
+      activeSort = isActive ? 'relevancia' : chip.dataset.sort;
+      qsa('.sort-row .chip', container).forEach((c) => c.setAttribute('aria-pressed', String(!isActive && c === chip)));
       renderGrid();
     });
-  });
-
-  qs('#sortSelect', container).addEventListener('change', (e) => {
-    activeSort = e.target.value;
-    renderGrid();
   });
 
   qs('#backBtn', container).addEventListener('click', () => {

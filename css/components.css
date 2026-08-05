@@ -104,8 +104,8 @@
   font-size: 0.95rem;
 }
 
-/* ---------- Chips (subcategorías) ---------- */
-.subcat-row {
+/* ---------- Chips (orden) ---------- */
+.sort-row {
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
@@ -314,8 +314,8 @@
 /* ---------- Floating: accesibilidad, volver arriba, redes ---------- */
 .social-fab-group {
   position: fixed;
-  left: 20px;
-  bottom: 20px;
+  right: 20px;
+  bottom: 82px;
   z-index: 70;
   display: flex;
   flex-direction: column-reverse;
@@ -391,6 +391,14 @@
   align-items: center;
   justify-content: center;
   box-shadow: var(--shadow-sm);
+  opacity: 0.55;
+  transition: background 0.15s ease, opacity 0.2s ease;
+}
+
+.a11y-fab:hover,
+.a11y-fab:focus-visible,
+.a11y-fab[aria-expanded='true'] {
+  opacity: 1;
 }
 
 .a11y-fab:hover {
@@ -405,20 +413,6 @@
   stroke-width: 1.4;
 }
 
-.back-to-top {
-  bottom: 84px;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(8px);
-  transition: opacity 0.2s ease, transform 0.2s ease, background 0.2s ease;
-}
-
-.back-to-top.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateY(0);
-}
-
 .a11y-panel {
   position: fixed;
   right: 20px;
@@ -429,6 +423,7 @@
   overflow-y: auto;
   background: var(--ivory);
   border: 1px solid var(--gold-line);
+  border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   padding: 20px;
   display: none;
@@ -585,8 +580,13 @@
   }
 
   .social-fab-group {
-    left: 16px;
-    bottom: 16px;
+    right: 16px;
+    bottom: 70px;
     gap: 8px;
+  }
+
+  .a11y-fab {
+    right: 16px;
+    bottom: 16px;
   }
 }

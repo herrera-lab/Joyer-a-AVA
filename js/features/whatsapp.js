@@ -11,13 +11,12 @@ export function buildOrderMessage(cart, lang = 'es') {
 
   cart.forEach((item) => {
     const variant = item.variant ? ` (${item.variant})` : '';
-    lines.push(`• ${item.qty}x ${item.name}${variant} — ${formatPrice(item.price * item.qty, lang)}`);
+    const itemName = lang === 'en' ? item.nameEn || item.name : item.name;
+    lines.push(`• ${item.qty}x ${itemName}${variant} — ${formatPrice(item.price * item.qty, lang)}`);
   });
 
   lines.push('');
-  lines.push(
-    `${lang === 'en' ? 'Subtotal' : 'Subtotal'}: ${formatPrice(getCartTotal(), lang)}`
-  );
+  lines.push(`Subtotal: ${formatPrice(getCartTotal(), lang)}`);
   lines.push(
     lang === 'en'
       ? 'Could you confirm availability, shipping cost and payment method?'

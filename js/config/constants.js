@@ -47,12 +47,25 @@ export const POLICIES = {
     '₡3.500 dentro del cantón de San Carlos.',
     'El seguimiento del envío se proporciona una vez confirmado el pago y finalizada la elaboración del pedido.'
   ],
+  shipping_en: [
+    'Shipping anywhere in Costa Rica via Correos de Costa Rica.',
+    '₡4,200 to any part of the country outside San Carlos.',
+    '₡3,500 within the San Carlos canton.',
+    'Tracking is provided once payment is confirmed and the order is finished.'
+  ],
   returns_es: [
     'Cambios únicamente por defectos de fabricación reportados dentro de los 5 días naturales posteriores a la entrega.',
     'El producto debe devolverse en las mismas condiciones en que fue entregado y con su empaque.',
     'No se realizan devoluciones de dinero, excepto cuando exista un defecto de fabricación que no pueda ser reparado o reemplazado.',
     'Las piezas personalizadas o grabadas no tienen devolución ni cambio, salvo por errores atribuibles a Creativas.',
     'La garantía cubre exclusivamente defectos de fabricación: no cubre daños por golpes, agua, perfumes, productos químicos, desgaste normal o reparaciones de terceros.'
+  ],
+  returns_en: [
+    'Exchanges only for manufacturing defects reported within 5 calendar days of delivery.',
+    'The product must be returned in the same condition it was delivered, with its packaging.',
+    'No refunds are issued, except when a manufacturing defect cannot be repaired or replaced.',
+    'Custom or engraved pieces have no returns or exchanges, except for errors attributable to Creativas.',
+    'The warranty covers manufacturing defects exclusively: it does not cover damage from impact, water, perfume, chemical products, normal wear, or third-party repairs.'
   ],
   terms_es: [
     'Los productos son artesanales y pueden presentar ligeras variaciones.',
@@ -61,10 +74,12 @@ export const POLICIES = {
     'Los envíos se realizan mediante Correos de Costa Rica.',
     'Creativas no se responsabiliza por retrasos atribuibles a la empresa transportista.'
   ],
-  privacy_es: [
-    'Esta sección está pendiente de definir junto con la dueña de la marca.',
-    'Por ahora: el sitio no tiene backend ni base de datos propia — los pedidos se coordinan por WhatsApp, donde la conversación viaja cifrada de extremo a extremo por la propia aplicación.',
-    'El carrito y las preferencias de idioma/accesibilidad se guardan únicamente en tu navegador (localStorage) y nunca se envían a ningún servidor.'
+  terms_en: [
+    'Products are handmade and may show slight variations.',
+    'Custom orders cannot be modified or cancelled once production has started.',
+    'Production begins once payment is confirmed.',
+    'Shipping is handled via Correos de Costa Rica.',
+    'Creativas is not responsible for delays attributable to the shipping carrier.'
   ]
 };
 

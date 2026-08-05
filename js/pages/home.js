@@ -23,14 +23,15 @@ function categoryRowHtml(category) {
           <p class="tagline">${escapeHtml(tagline)}</p>
           <div class="cat-minis">
             ${minis
-              .map(
-                (p) => `
+              .map((p) => {
+                const pName = state.language === 'en' ? p.name_en || p.name : p.name;
+                return `
               <a class="cat-mini" href="${ROUTES.product(p.id)}">
-                <span class="swatch"><img src="${p.image}" alt="${escapeHtml(p.name)}" loading="lazy" decoding="async" width="240" height="240" /></span>
-                <span class="name">${escapeHtml(p.name)}</span>
+                <span class="swatch"><img src="${p.image}" alt="${escapeHtml(pName)}" loading="lazy" decoding="async" width="240" height="240" /></span>
+                <span class="name">${escapeHtml(pName)}</span>
                 <span class="price">${formatPrice(p.price, state.language)}</span>
-              </a>`
-              )
+              </a>`;
+              })
               .join('')}
           </div>
           <a class="cat-cta-label" href="${ROUTES.category(category.slug)}">${t('ver_coleccion')}</a>

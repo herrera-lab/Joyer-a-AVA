@@ -56,6 +56,7 @@ export function renderProductDetail(container, params) {
   const category = getCategory(product.category);
   const categoryLabel = state.language === 'en' ? category.label_en : category.label_es;
   const material = state.language === 'en' ? product.material_en : product.material_es;
+  const productName = state.language === 'en' ? product.name_en || product.name : product.name;
   const related = getRelatedProducts(product, 4);
   const lang = state.language;
   const hiddenMaterialCategories = new Set([
@@ -76,18 +77,18 @@ export function renderProductDetail(container, params) {
       <p class="breadcrumb">
         <a href="${ROUTES.home()}">${t('breadcrumb_inicio')}</a> /
         <a href="${ROUTES.category(category.slug)}">${escapeHtml(categoryLabel)}</a> /
-        <b>${escapeHtml(product.name)}</b>
+        <b>${escapeHtml(productName)}</b>
       </p>
 
       <div class="product-detail-grid">
         <div class="product-gallery">
           <div class="product-gallery-main">
-            <img src="${product.image}" alt="${escapeHtml(product.name)} — ${escapeHtml(material)}" loading="eager" decoding="async" width="900" height="900" />
+            <img src="${product.image}" alt="${escapeHtml(productName)} — ${escapeHtml(material)}" loading="eager" decoding="async" width="900" height="900" />
           </div>
         </div>
 
         <div class="product-info">
-          <h1>${escapeHtml(product.name)}</h1>
+          <h1>${escapeHtml(productName)}</h1>
           <p class="product-detail-price">${formatPrice(product.price, lang)}</p>
           <p class="product-detail-desc">
             ${

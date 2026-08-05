@@ -12,7 +12,9 @@ export function searchProducts(term) {
   return PRODUCTS.filter(
     (p) =>
       p.name.toLowerCase().includes(normalized) ||
+      (p.name_en && p.name_en.toLowerCase().includes(normalized)) ||
       p.material_es.toLowerCase().includes(normalized) ||
+      (p.material_en && p.material_en.toLowerCase().includes(normalized)) ||
       categoryMatch.includes(p.category)
   ).slice(0, 8);
 }

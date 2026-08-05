@@ -8,6 +8,7 @@ export function addToCart(product, variant = '') {
   const line = {
     id: product.id,
     name: product.name,
+    nameEn: product.name_en || product.name,
     image: product.image,
     price: product.price,
     category: product.category,

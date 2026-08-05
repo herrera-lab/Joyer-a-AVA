@@ -35,7 +35,7 @@ export function getRelatedProducts(product, count = 4) {
 }
 
 export function productCardHtml(product) {
-  const name = escapeHtml(product.name);
+  const name = escapeHtml(state.language === 'en' ? product.name_en || product.name : product.name);
   const badges = [
     product.isNew ? `<span class="badge badge--new">${t('badge_nuevo')}</span>` : '',
     product.isLimited ? `<span class="badge badge--limited">${t('badge_limitada')}</span>` : ''

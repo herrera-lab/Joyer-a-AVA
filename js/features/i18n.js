@@ -16,11 +16,17 @@ export function translateDom(scope = document) {
   qsa('[data-i18n-placeholder]', scope).forEach((node) => {
     node.setAttribute('placeholder', t(node.dataset.i18nPlaceholder));
   });
+}
 
-  const langBtn = qs('#langBtn', scope);
-  if (langBtn) {
-    langBtn.textContent = state.language === 'es' ? 'EN' : 'ES';
-  }
+function updateLangBadge() {
+  const badge = qs('#langBadge');
+  if (badge) badge.textContent = state.language.toUpperCase();
+}
+
+function updateMeta() {
+  document.title = t('page_title');
+  const metaDesc = qs('meta[name="description"]');
+  if (metaDesc) metaDesc.setAttribute('content', t('page_description'));
 }
 
 export function initI18n() {
@@ -35,7 +41,11 @@ export function initI18n() {
   subscribe('language', (lang) => {
     document.documentElement.lang = lang;
     translateDom();
+    updateLangBadge();
+    updateMeta();
   });
 
   translateDom();
+  updateLangBadge();
+  updateMeta();
 }

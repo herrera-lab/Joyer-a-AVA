@@ -1,13 +1,20 @@
 export const STRINGS = {
   es: {
+    page_title: 'Creativas — Tu esencia en un accesorio',
+    page_description:
+      'Creativas: joyería y bisutería hecha a mano y sobre pedido en Costa Rica. Anillos, aretes, cadenas, collares, pulseras, relicarios y piezas personalizadas.',
     skip: 'Saltar al contenido principal',
     nav_colecciones: 'Colecciones',
     nav_nosotros: 'Nosotros',
     nav_contacto: 'Contacto',
     nav_politicas: 'Políticas',
     nav_principal_aria: 'Principal',
+    nav_toggle_open_aria: 'Abrir menú',
+    nav_toggle_close_aria: 'Cerrar menú',
+    social_fab_group_aria: 'Redes sociales',
+    social_fab_main_aria: 'Abrir redes sociales',
     lang_btn_aria: 'Cambiar idioma a inglés',
-    search_placeholder: 'Buscar por nombre o categoría…',
+    search_placeholder: 'Buscar por nombre',
     search_aria: 'Buscar productos',
     cart_aria: 'Abrir carrito',
 
@@ -25,13 +32,9 @@ export const STRINGS = {
     ver_coleccion: 'Ver colección',
     back_to_inicio: '← Volver al inicio',
     breadcrumb_inicio: 'Inicio',
-    subcat_filter_aria: 'Filtrar por subcategoría',
-    subcat_all: 'Todas',
     sort_label: 'Ordenar por',
-    sort_relevancia: 'Relevancia',
     sort_precio_asc: 'Precio: menor a mayor',
     sort_precio_desc: 'Precio: mayor a menor',
-    sort_nuevo: 'Más nuevo',
     empty_category: 'Todavía no hay piezas en esta subcategoría.',
 
     badge_nuevo: 'Nuevo',
@@ -79,7 +82,6 @@ export const STRINGS = {
     policies_shipping: 'Envíos',
     policies_returns: 'Cambios y devoluciones',
     policies_terms: 'Términos y condiciones',
-    policies_privacy: 'Privacidad',
 
     footer_brand_desc:
       'Joyería hecha sobre pedido, con envíos a todo Costa Rica. Cada pieza se fabrica cuando la pedís.',
@@ -93,8 +95,7 @@ export const STRINGS = {
     footer_link_envios: 'Envíos',
     footer_link_devoluciones: 'Cambios y devoluciones',
     footer_link_terminos: 'Términos y condiciones',
-    footer_link_privacidad: 'Privacidad',
-    footer_copyright: '© Creativas',
+    footer_copyright: '© 2026 Creativas Joyería Artesanal. Todos los derechos reservados.',
     footer_horario: 'Atención de lunes a sábado',
 
     a11y_fab_aria: 'Abrir opciones de accesibilidad',
@@ -105,7 +106,6 @@ export const STRINGS = {
     a11y_motion_label: 'Reducir movimiento',
     a11y_underline_label: 'Subrayar enlaces',
     a11y_reset: 'Restablecer todo',
-    back_to_top_aria: 'Volver arriba',
 
     social_whatsapp_aria: 'WhatsApp',
     social_instagram_aria: 'Instagram',
@@ -116,14 +116,21 @@ export const STRINGS = {
   },
 
   en: {
+    page_title: 'Creativas — Your Essence in an Accessory',
+    page_description:
+      'Creativas: handmade, made-to-order jewelry and accessories in Costa Rica. Rings, earrings, chains, necklaces, bracelets, lockets and custom pieces.',
     skip: 'Skip to main content',
     nav_colecciones: 'Collections',
     nav_nosotros: 'About',
     nav_contacto: 'Contact',
     nav_politicas: 'Policies',
     nav_principal_aria: 'Main',
+    nav_toggle_open_aria: 'Open menu',
+    nav_toggle_close_aria: 'Close menu',
+    social_fab_group_aria: 'Social media',
+    social_fab_main_aria: 'Open social links',
     lang_btn_aria: 'Switch language to Spanish',
-    search_placeholder: 'Search by name or category…',
+    search_placeholder: 'Search by name',
     search_aria: 'Search products',
     cart_aria: 'Open cart',
 
@@ -141,13 +148,9 @@ export const STRINGS = {
     ver_coleccion: 'View collection',
     back_to_inicio: '← Back to home',
     breadcrumb_inicio: 'Home',
-    subcat_filter_aria: 'Filter by subcategory',
-    subcat_all: 'All',
     sort_label: 'Sort by',
-    sort_relevancia: 'Relevance',
     sort_precio_asc: 'Price: low to high',
     sort_precio_desc: 'Price: high to low',
-    sort_nuevo: 'Newest',
     empty_category: 'No pieces in this subcategory yet.',
 
     badge_nuevo: 'New',
@@ -195,7 +198,6 @@ export const STRINGS = {
     policies_shipping: 'Shipping',
     policies_returns: 'Exchanges & returns',
     policies_terms: 'Terms & conditions',
-    policies_privacy: 'Privacy',
 
     footer_brand_desc:
       'Jewelry made to order, shipped anywhere in Costa Rica. Every piece is crafted once you order it.',
@@ -209,8 +211,7 @@ export const STRINGS = {
     footer_link_envios: 'Shipping',
     footer_link_devoluciones: 'Exchanges & returns',
     footer_link_terminos: 'Terms & conditions',
-    footer_link_privacidad: 'Privacy',
-    footer_copyright: '© Creativas',
+    footer_copyright: '© 2026 Creativas Jewelry. All rights reserved.',
     footer_horario: 'Open Monday to Saturday',
 
     a11y_fab_aria: 'Open accessibility options',
@@ -221,7 +222,6 @@ export const STRINGS = {
     a11y_motion_label: 'Reduce motion',
     a11y_underline_label: 'Underline links',
     a11y_reset: 'Reset all',
-    back_to_top_aria: 'Back to top',
 
     social_whatsapp_aria: 'WhatsApp',
     social_instagram_aria: 'Instagram',

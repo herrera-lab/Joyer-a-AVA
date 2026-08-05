@@ -5,7 +5,7 @@ import { debounce } from '../utils/helpers.js';
 
 import { initI18n, t } from '../features/i18n.js';
 import { initAccessibility } from '../features/accessibility.js';
-import { initBackToTop, initRevealOnScroll } from '../features/scroll.js';
+import { initRevealOnScroll } from '../features/scroll.js';
 import { initCartDrawer, cartPage } from '../pages/cart.js';
 import { addToCart, getCartCount } from '../features/cart.js';
 import { getProductById, getCategories } from '../features/catalog.js';
@@ -47,6 +47,8 @@ function renderRoute(route) {
       renderHome(app);
   }
 
+  document.body.classList.toggle('has-hero', route.page === 'home' || route.page === 'cart');
+
   window.scrollTo(0, 0);
   initRevealOnScroll(app);
 }
@@ -69,7 +71,13 @@ function renderCollectionsMenu() {
   menu.innerHTML = getCategories()
     .map((category) => {
       const label = state.language === 'en' ? category.label_en : category.label_es;
-      return `<li role="none"><a role="menuitem" href="${ROUTES.category(category.slug)}">${escapeHtml(label)}</a></li>`;
+      return `<li role="none">
+        <a role="menuitem" href="${ROUTES.category(category.slug)}">
+          <svg class="cat-icon" aria-hidden="true"><use href="#i-cat-${category.slug}" /></svg>
+          <span class="cat-label">${escapeHtml(label)}</span>
+          <svg class="cat-chevron" aria-hidden="true"><use href="#i-chevron-right" /></svg>
+        </a>
+      </li>`;
     })
     .join('');
 }
@@ -90,7 +98,7 @@ function wireNavDropdown() {
   });
 
   document.addEventListener('click', (event) => {
-    if (!menu.contains(event.target) && event.target !== toggle) close();
+    if (!menu.contains(event.target) && !toggle.contains(event.target)) close();
   });
 
   menu.addEventListener('click', (event) => {
@@ -142,6 +150,15 @@ function wireHeaderScrollBehavior() {
   });
 }
 
+function wireBrandScrollTop() {
+  const brand = qs('.brand');
+  if (!brand) return;
+
+  brand.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
 function wireSocialFab() {
   const group = qs('#socialFabGroup');
   const mainBtn = qs('#socialMainBtn');
@@ -177,14 +194,18 @@ function wireMobileNav() {
   function closeMenu() {
     menu.classList.remove('is-open');
     toggle.setAttribute('aria-expanded', 'false');
-    toggle.setAttribute('aria-label', 'Abrir menú');
+    toggle.setAttribute('aria-label', t('nav_toggle_open_aria'));
   }
 
   toggle.addEventListener('click', () => {
     const open = menu.classList.toggle('is-open');
     toggle.setAttribute('aria-expanded', String(open));
-    toggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    toggle.setAttribute('aria-label', open ? t('nav_toggle_close_aria') : t('nav_toggle_open_aria'));
     if (header) header.classList.remove('is-hidden');
+    if (open) {
+      qs('#searchBox')?.classList.remove('is-open');
+      qs('#searchToggle')?.setAttribute('aria-expanded', 'false');
+    }
   });
 
   menu.querySelectorAll('a, .nav-right button').forEach((element) => {
@@ -192,7 +213,7 @@ function wireMobileNav() {
   });
 
   document.addEventListener('click', (event) => {
-    if (!menu.contains(event.target) && event.target !== toggle) closeMenu();
+    if (!menu.contains(event.target) && !toggle.contains(event.target)) closeMenu();
   });
 
   window.addEventListener('resize', () => {
@@ -201,9 +222,11 @@ function wireMobileNav() {
 }
 
 function wireSearch() {
+  const box = qs('#searchBox');
+  const toggle = qs('#searchToggle');
   const input = qs('#searchInput');
   const results = qs('#searchResults');
-  if (!input || !results) return;
+  if (!box || !toggle || !input || !results) return;
 
   function renderResults(term) {
     const matches = searchProducts(term);
@@ -218,28 +241,54 @@ function wireSearch() {
         (p) =>
           `<a href="${ROUTES.product(p.id)}" class="search-result">
             <img src="${p.image}" alt="" loading="lazy" decoding="async" width="64" height="64" />
-            <span>${escapeHtml(p.name)}</span>
+            <span>${escapeHtml(state.language === 'en' ? p.name_en || p.name : p.name)}</span>
           </a>`
       )
       .join('');
     results.classList.add('open');
   }
 
+  function openSearch() {
+    box.classList.add('is-open');
+    qs('.nav')?.classList.add('search-active');
+    toggle.setAttribute('aria-expanded', 'true');
+    qs('#navMenu')?.classList.remove('is-open');
+    qs('#navToggle')?.setAttribute('aria-expanded', 'false');
+    input.focus();
+  }
+
+  function closeSearch() {
+    box.classList.remove('is-open');
+    qs('.nav')?.classList.remove('search-active');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.blur();
+    input.value = '';
+    input.blur();
+    results.innerHTML = '';
+    results.classList.remove('open');
+  }
+
+  toggle.addEventListener('click', () => {
+    if (box.classList.contains('is-open')) {
+      closeSearch();
+    } else {
+      openSearch();
+    }
+  });
+
   input.addEventListener(
     'input',
     debounce(() => renderResults(input.value), 200)
   );
 
-  results.addEventListener('click', () => {
-    input.value = '';
-    results.innerHTML = '';
-    results.classList.remove('open');
-  });
+  results.addEventListener('click', closeSearch);
 
   document.addEventListener('click', (event) => {
-    if (event.target !== input && !results.contains(event.target)) {
-      results.classList.remove('open');
-    }
+    if (!box.contains(event.target)) closeSearch();
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && box.classList.contains('is-open')) closeSearch();
   });
 }
 
@@ -253,10 +302,10 @@ export function initApp() {
   initI18n();
   initAccessibility();
   initCartDrawer();
-  initBackToTop();
   wireAddToCartDelegation();
   wireNavDropdown();
   wireHeaderScrollBehavior();
+  wireBrandScrollTop();
   wireSocialFab();
   wireMobileNav();
   wireSearch();

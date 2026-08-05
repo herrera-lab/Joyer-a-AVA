@@ -23,3 +23,6 @@ yarn-error.log*
 # Variables de entorno / secretos
 .env
 .env.local
+
+# Documentación interna (no publicar en el repo)
+docs/

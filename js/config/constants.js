@@ -2,7 +2,7 @@ export const BRAND = {
   name: 'Creativas',
   slogan_es: 'Tu esencia en un accesorio',
   slogan_en: 'Your essence in an accessory',
-  logo: 'images/LogoPrincipal.png',
+  logo: 'images/LogoPrincipal.webp',
   heroVideo: 'images/hero/videoPrincipal.mp4',
   mission_es:
     'Diseñar más que accesorios, creando piezas de identidad únicas que fusionan el estilo de cada persona con el legado artesanal de la marca, transformando la bisutería tradicional en arte con alma e historia.',

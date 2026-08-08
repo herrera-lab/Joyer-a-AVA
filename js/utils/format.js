@@ -1,4 +1,7 @@
 export function formatPrice(value, lang = 'es') {
+  if (typeof value !== 'number' || !Number.isFinite(value)) {
+    return lang === 'en' ? 'Price on request' : 'Precio a consultar';
+  }
   return new Intl.NumberFormat(lang === 'en' ? 'en-US' : 'es-CR', {
     style: 'currency',
     currency: 'CRC',

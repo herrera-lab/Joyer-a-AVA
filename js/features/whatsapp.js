@@ -12,7 +12,8 @@ export function buildOrderMessage(cart, lang = 'es') {
   cart.forEach((item) => {
     const variant = item.variant ? ` (${item.variant})` : '';
     const itemName = lang === 'en' ? item.nameEn || item.name : item.name;
-    lines.push(`• ${item.qty}x ${itemName}${variant} — ${formatPrice(item.price * item.qty, lang)}`);
+    const lineTotal = typeof item.price === 'number' && Number.isFinite(item.price) ? item.price * item.qty : item.price;
+    lines.push(`• ${item.qty}x ${itemName}${variant} — ${formatPrice(lineTotal, lang)}`);
   });
 
   lines.push('');

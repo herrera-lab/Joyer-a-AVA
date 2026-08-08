@@ -52,5 +52,8 @@ export function getCartCount() {
 }
 
 export function getCartTotal() {
+  const hasVariablePrice = state.cart.some((item) => typeof item.price !== 'number' || !Number.isFinite(item.price));
+  if (hasVariablePrice) return null;
+
   return state.cart.reduce((total, item) => total + item.price * item.qty, 0);
 }

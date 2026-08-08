@@ -66,13 +66,24 @@ export function productCardHtml(product) {
     </article>`;
 }
 
+function byPrice(direction) {
+  return (a, b) => {
+    const aHasPrice = typeof a.price === 'number' && Number.isFinite(a.price);
+    const bHasPrice = typeof b.price === 'number' && Number.isFinite(b.price);
+    if (!aHasPrice && !bHasPrice) return 0;
+    if (!aHasPrice) return 1;
+    if (!bHasPrice) return -1;
+    return direction * (a.price - b.price);
+  };
+}
+
 export function sortProducts(products, sortKey) {
   const list = [...products];
   switch (sortKey) {
     case 'precio_asc':
-      return list.sort((a, b) => a.price - b.price);
+      return list.sort(byPrice(1));
     case 'precio_desc':
-      return list.sort((a, b) => b.price - a.price);
+      return list.sort(byPrice(-1));
     case 'nuevo':
       return list.sort((a, b) => Number(b.isNew) - Number(a.isNew));
     default:

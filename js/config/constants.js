@@ -8,10 +8,6 @@ export const BRAND = {
     'Diseñar más que accesorios, creando piezas de identidad únicas que fusionan el estilo de cada persona con el legado artesanal de la marca, transformando la bisutería tradicional en arte con alma e historia.',
   mission_en:
     'Designing more than accessories: creating unique identity pieces that fuse each person’s style with the brand’s artisanal legacy, turning traditional jewelry-making into art with soul and history.',
-  valueProp_es:
-    'En Creativas, cada pieza es diseñada con amor y dedicación, haciendo que cada una sea única no solo en su confección sino también en el significado especial que lleva consigo. Nuestro deseo es que cada accesorio te acompañe en momentos importantes, refleje tu esencia y se convierta en un recuerdo que puedas atesorar.',
-  valueProp_en:
-    'At Creativas, every piece is designed with love and dedication, making each one unique not only in how it is made but in the special meaning it carries. We want every accessory to be with you in important moments, reflect your essence, and become a keepsake you treasure.',
   history_es:
     'Creativas nació de una pasión que comenzó a los nueve años con la creación de joyas hechas a mano. Aunque ese sueño quedó en pausa durante un tiempo, en el año 2019 renació esa pasión, dando origen a Creativas. Desde entonces, la marca ha crecido con dedicación, aprendizaje y amor, creando piezas exclusivas que reflejan la esencia de quien las lleva.',
   history_en:

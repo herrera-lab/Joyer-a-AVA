@@ -41,8 +41,6 @@ function categoryRowHtml(category) {
 }
 
 export function renderHome(container) {
-  const lead = state.language === 'en' ? BRAND.valueProp_en : BRAND.valueProp_es;
-
   container.innerHTML = `
     <section class="hero">
       <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect fill='%232e2624' width='16' height='9'/%3E%3C/svg%3E">
@@ -54,12 +52,6 @@ export function renderHome(container) {
         <img class="hero-logo" src="${BRAND.logo}" alt="${BRAND.name}" loading="lazy" decoding="async" width="480" height="480" />
         <h1>${escapeHtml(state.language === 'en' ? BRAND.slogan_en : BRAND.slogan_es)}</h1>
         <button class="hero-cta" type="button" id="heroCta" data-i18n="hero_cta">${t('hero_cta')}</button>
-      </div>
-    </section>
-
-    <section class="intro" data-reveal>
-      <div class="wrap">
-        <p class="lead">${escapeHtml(lead)}</p>
       </div>
     </section>
 

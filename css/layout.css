@@ -737,8 +737,8 @@
 /* Nav floats transparently over the hero video until scrolled, hovered or focused */
 body.has-hero .hero {
   margin-top: -60px;
-  min-height: calc(100vh + 60px);
-  min-height: calc(100dvh + 60px);
+  min-height: 100vh;
+  min-height: 100dvh;
 }
 
 body.has-hero .nav:not(.is-scrolled):not(:hover):not(:focus-within) .nav-links > li > a,
@@ -783,8 +783,8 @@ body.has-hero .nav:not(.is-scrolled):not(:hover):not(:focus-within) .nav-dropdow
 
   body.has-hero .hero {
     margin-top: -104px;
-    min-height: calc(100vh + 104px);
-    min-height: calc(100dvh + 104px);
+    min-height: 100vh;
+    min-height: 100dvh;
   }
 }
 

@@ -1,7 +1,4 @@
-﻿// ============================================================================
-// Catálogo de productos - Actualizar con datos reales antes de publicar
-// ============================================================================
-export const CATEGORIES = [
+﻿export const CATEGORIES = [
   {
     "slug": "anillos",
     "label_es": "Anillos",
@@ -1939,8 +1936,6 @@ export const PRODUCTS = [
     "isLimited": false
   },
 
-  //Pulseras
-  
   {
     "id": "pulseras-01",
     "category": "pulseras",
